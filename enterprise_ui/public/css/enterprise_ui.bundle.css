@@ -1,0 +1,1873 @@
+/** enterprise_ui.bundle.css — concatenated for Frappe esbuild fingerprinting. */
+
+/* ===== tokens.css ===== */
+/**
+ * Enterprise UI design tokens.
+ * Scoped application happens under .eui-form-view (see forms.css).
+ * Runtime boot may override brand/density --eui-* on :root via JS.
+ *
+ * Redesigns should prefer changing tokens here over per-selector literals.
+ *
+ * Spacing scale: 4 / 8 / 12 / 16 / 20 / 24 / 32
+ */
+
+:root {
+	/* Brand (shell may override) */
+	--eui-primary: #2f6fbf;
+	--eui-primary-hover: #275fa5;
+	--eui-primary-soft: rgba(47, 111, 191, 0.12);
+	--eui-primary-focus: rgba(47, 111, 191, 0.22);
+
+	/* Surfaces — page, section, and input stay close together */
+	--eui-page-bg: #f3f5f8;
+	--eui-surface: #ffffff;
+	--eui-surface-muted: #f7f8fa;
+	--eui-section-bg: #ffffff;
+
+	/* Text */
+	--eui-text: #111827;
+	--eui-text-muted: #4b5563;
+	--eui-text-placeholder: #94a3b8;
+	--eui-label-color: #374151;
+
+	/* Borders */
+	--eui-border: #e5e7eb;
+	--eui-border-strong: #d1d5db;
+
+	/* Semantic */
+	--eui-success: #15803d;
+	--eui-warning: #b45309;
+	--eui-danger: #b91c1c;
+	--eui-info: #1d4ed8;
+	--eui-neutral: #6b7280;
+
+	/* Radii — one consistent family */
+	--eui-radius-sm: 8px;
+	--eui-radius-md: 10px;
+	--eui-radius-lg: 12px;
+	--eui-control-radius: 8px;
+	--eui-section-radius: 10px;
+	--eui-dropdown-radius: 9px;
+
+	/* Form width */
+	--eui-form-max-width: 1100px;
+	--eui-form-medium-width: 1100px;
+	--eui-form-wide-width: 1280px;
+
+	/* Controls — productive density */
+	--eui-control-height: 40px;
+	--eui-control-height-comfortable: 40px;
+	--eui-control-height-compact: 34px;
+	--eui-checkbox-size: 16px;
+	--eui-checkbox-hit: 32px;
+	--eui-input-bg: #ffffff;
+	--eui-input-bg-hover: #ffffff;
+	--eui-input-bg-focus: #ffffff;
+	/* Soft read-only tint; controls.css prefers white/light surface for Data/Select RO */
+	--eui-input-bg-readonly: #fafbfc;
+	--eui-input-border: #d5dbe3;
+	--eui-input-border-hover: #b7c0cc;
+	--eui-input-border-focus: var(--eui-primary);
+	--eui-input-border-width: 1px;
+	--eui-input-border-width-focus: 1px;
+
+	/* Filled variant (opt-in) */
+	--eui-input-filled-bg: #f3f4f6;
+	--eui-input-filled-bg-hover: #eef0f3;
+	--eui-input-filled-border: transparent;
+
+	/* Typography — one productive scale */
+	--eui-label-size: 12px;
+	--eui-label-weight: 600;
+	--eui-body-size: 14px;
+	--eui-helper-size: 12px;
+	--eui-section-title-size: 15px;
+	--eui-section-subtitle-size: 12px;
+	--eui-tab-size: 13px;
+	--eui-toolbar-font-size: 13px;
+
+	/* Spacing (Comfortable defaults) */
+	--eui-space-1: 4px;
+	--eui-space-2: 8px;
+	--eui-space-3: 12px;
+	--eui-space-4: 16px;
+	--eui-space-5: 20px;
+	--eui-space-6: 24px;
+	--eui-space-8: 32px;
+	--eui-field-gap: 16px;
+	--eui-field-row-gap: 16px;
+	--eui-field-col-gap: 20px;
+	--eui-grid-gap-x: 20px;
+	--eui-grid-gap-y: 16px;
+	--eui-section-padding: 18px;
+	--eui-section-gap: 14px;
+	--eui-label-gap: 4px;
+	--eui-grid-row-height: 36px;
+	--eui-toolbar-button-size: 32px;
+	--eui-toolbar-icon-size: 16px;
+	--eui-save-height: 34px;
+
+	/* Motion — color/border only, never layout */
+	--eui-transition-fast: 150ms;
+	--eui-ease: cubic-bezier(0.2, 0, 0, 1);
+
+	/* Elevation — intentionally restrained */
+	--eui-shadow-soft: none;
+	--eui-shadow-dropdown: 0 8px 24px rgba(15, 23, 42, 0.12);
+	--eui-focus-ring: 0 0 0 3px var(--eui-primary-focus);
+}
+
+html[data-theme="dark"] {
+	--eui-page-bg: #12161c;
+	--eui-surface: #1b212b;
+	--eui-surface-muted: #171d26;
+	--eui-section-bg: #1c232e;
+
+	--eui-text: #e7edf5;
+	--eui-text-muted: #9aa6b6;
+	--eui-text-placeholder: #7d8b9c;
+	--eui-label-color: #d5deea;
+
+	--eui-border: #313a48;
+	--eui-border-strong: #425062;
+
+	/* Dark controls — never white inputs on a dark page */
+	--eui-input-bg: #262e3a;
+	--eui-input-bg-hover: #2b3442;
+	--eui-input-bg-focus: #262e3a;
+	--eui-input-bg-readonly: #202732;
+	--eui-input-border: #465266;
+	--eui-input-border-hover: #5c6b80;
+	--eui-input-border-focus: var(--eui-primary);
+	--eui-danger-soft: rgba(248, 113, 113, 0.18);
+
+	--eui-input-filled-bg: #171c23;
+	--eui-input-filled-bg-hover: #1a2028;
+
+	--eui-primary: var(--es-brand-primary, #5b93d6);
+	--eui-primary-hover: var(--es-brand-primary-hover, #7aa6de);
+	--eui-primary-soft: var(--es-brand-primary-soft, rgba(91, 147, 214, 0.18));
+	--eui-primary-focus: var(--es-brand-primary-focus, rgba(91, 147, 214, 0.28));
+	--eui-focus-ring: 0 0 0 3px rgba(91, 147, 214, 0.28);
+
+	--eui-shadow-soft: none;
+	--eui-shadow-dropdown: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* Prefer shell brand when available */
+:root {
+	--eui-primary: var(--es-brand-primary, #2f6fbf);
+	--eui-primary-hover: var(--es-brand-primary-hover, #275fa5);
+	--eui-primary-soft: var(--es-brand-primary-soft, rgba(47, 111, 191, 0.12));
+	--eui-primary-focus: var(--es-brand-primary-focus, rgba(47, 111, 191, 0.22));
+}
+
+/* Density */
+.eui-form-view[data-eui-density="Comfortable"] {
+	--eui-control-height: var(--eui-density-comfortable-control-height, var(--eui-control-height-comfortable));
+	--eui-field-gap: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-field-row-gap: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-grid-gap-y: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-section-padding: var(--eui-density-comfortable-section-padding, 18px);
+	--eui-section-gap: var(--eui-density-comfortable-section-gap, 14px);
+	--eui-section-radius: var(--eui-density-comfortable-section-radius, 10px);
+	--eui-label-size: var(--eui-density-comfortable-label-size, 12px);
+	--eui-grid-row-height: var(--eui-density-comfortable-grid-row-height, 36px);
+}
+
+.eui-form-view[data-eui-density="Compact"] {
+	--eui-control-height: var(--eui-density-compact-control-height, var(--eui-control-height-compact));
+	--eui-field-gap: var(--eui-density-compact-field-gap, 12px);
+	--eui-field-row-gap: var(--eui-density-compact-field-gap, 12px);
+	--eui-grid-gap-y: var(--eui-density-compact-field-gap, 12px);
+	--eui-section-padding: var(--eui-density-compact-section-padding, 16px);
+	--eui-section-gap: var(--eui-density-compact-section-gap, 12px);
+	--eui-section-radius: var(--eui-density-compact-section-radius, 10px);
+	--eui-label-size: var(--eui-density-compact-label-size, 12px);
+	--eui-grid-row-height: var(--eui-density-compact-grid-row-height, 32px);
+	--eui-label-gap: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eui-form-view {
+		--eui-transition-fast: 0ms;
+	}
+}
+
+/* ===== forms.css ===== */
+/**
+ * Global Enterprise Form Theme — page chrome, layout width, header.
+ * ALL selectors are scoped under .eui-form-view to avoid Desk-wide leakage.
+ * Never apply to Quick Entry dialogs, Web Forms, Print, List View.
+ */
+
+.eui-form-view.page-container,
+.page-container.eui-form-view {
+	background: var(--eui-page-bg);
+}
+
+/* Page → sections → fields (no giant wrapping card)
+ * Frappe applies .frappe-card + form-page card-bg — neutralize both. */
+.eui-form-view .layout-main-section,
+.eui-form-view .layout-main-section.frappe-card,
+.eui-form-view .layout-main-section-wrapper,
+.eui-form-view .form-layout,
+.eui-form-view .std-form-layout,
+.eui-form-view .form-page,
+.eui-form-view .std-form-layout > .form-layout > .form-page {
+	background: transparent;
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+}
+
+/* Content width — constrain the whole form column, not only section pieces */
+.eui-form-view[data-eui-width="Medium"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Medium"] .form-tabs-list,
+.eui-form-view[data-eui-width="Medium"] .form-message,
+.eui-form-view[data-eui-width="Medium"] .form-dashboard,
+.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-body {
+	max-width: var(--eui-form-medium-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.eui-form-view[data-eui-width="Wide"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Wide"] .form-tabs-list,
+.eui-form-view[data-eui-width="Wide"] .form-message,
+.eui-form-view[data-eui-width="Wide"] .form-dashboard,
+.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-body {
+	max-width: var(--eui-form-wide-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.eui-form-view[data-eui-width="Full"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Full"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Full"] .std-form-layout .section-body,
+.eui-form-view[data-eui-width="Full"] .form-tabs-list {
+	max-width: none;
+}
+
+/* Compact persistent toolbar — do not let controls enlarge the header */
+.eui-form-view[data-eui-header="1"] .page-head {
+	background: var(--eui-surface);
+	border-bottom: 1px solid var(--eui-border);
+	box-shadow: none;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-head-content {
+	height: 48px;
+	min-height: 44px;
+	max-height: 48px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	align-items: center;
+	gap: 8px;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-title {
+	min-width: 0;
+	flex: 1 1 auto;
+	overflow: hidden;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-actions,
+.eui-form-view[data-eui-header="1"] .page-head .standard-actions {
+	flex: 0 0 auto;
+	align-items: center;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-title,
+.eui-form-view[data-eui-header="1"] .page-head .title-area {
+	min-height: 0;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .title-text {
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--eui-text);
+	font-size: 16px;
+	line-height: 1.2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100%;
+}
+
+/* Compact semantic status badges — not giant pills */
+.eui-form-view[data-eui-header="1"] .page-head .indicator-pill,
+.eui-form-view[data-eui-header="1"] .page-head .indicator-pill-right,
+.eui-form-view[data-eui-header="1"] .page-head .indicator {
+	border-radius: 6px;
+	font-weight: 600;
+	font-size: 11px;
+	padding: 2px 8px;
+	min-width: 0;
+	line-height: 1.4;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn {
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: var(--eui-toolbar-font-size);
+	line-height: 1;
+}
+
+/* Back / forward / overflow — compact icon buttons, not square cards */
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn,
+.eui-form-view[data-eui-header="1"] .page-icon-group .btn,
+.eui-form-view[data-eui-header="1"] .menu-btn-group > .btn {
+	width: var(--eui-toolbar-button-size);
+	height: var(--eui-toolbar-button-size);
+	min-width: var(--eui-toolbar-button-size);
+	min-height: var(--eui-toolbar-button-size);
+	max-width: var(--eui-toolbar-button-size);
+	max-height: var(--eui-toolbar-button-size);
+	padding: 0;
+	margin-left: 6px;
+	border-radius: 7px;
+	border: 1px solid var(--eui-border);
+	background: var(--eui-surface);
+	color: var(--eui-text);
+	box-shadow: none;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn .icon,
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn svg,
+.eui-form-view[data-eui-header="1"] .menu-btn-group .icon,
+.eui-form-view[data-eui-header="1"] .page-icon-group .icon {
+	width: var(--eui-toolbar-icon-size);
+	height: var(--eui-toolbar-icon-size);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn:hover,
+.eui-form-view[data-eui-header="1"] .menu-btn-group > .btn:hover {
+	background: var(--eui-surface-muted);
+	border-color: var(--eui-border-strong);
+}
+
+/* Save and other labeled toolbar actions */
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary,
+.eui-form-view[data-eui-header="1"] .page-actions .primary-action,
+.eui-form-view[data-eui-header="1"] .standard-actions .btn-primary {
+	height: var(--eui-save-height);
+	min-height: var(--eui-save-height);
+	max-height: var(--eui-save-height);
+	padding: 0 14px;
+	font-size: var(--eui-toolbar-font-size);
+	font-weight: 600;
+	border-radius: 8px;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary {
+	background: var(--eui-primary);
+	border-color: var(--eui-primary);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary:hover,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary:focus {
+	background: var(--eui-primary-hover);
+	border-color: var(--eui-primary-hover);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-default,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-secondary {
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-primary);
+	color: var(--eui-primary);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-default:hover,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-secondary:hover {
+	background: var(--eui-primary-soft);
+	border-color: var(--eui-primary-hover);
+	color: var(--eui-primary-hover);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring);
+}
+
+/* Soft page padding — reduce chrome before first field */
+.eui-form-view .layout-main-section-wrapper {
+	padding-top: 6px;
+}
+
+.eui-form-view .form-message {
+	border-radius: var(--eui-radius-md);
+	margin-bottom: var(--eui-section-gap);
+}
+
+/* Submitted / cancelled readability */
+.eui-form-view .form-layout[data-state="Submitted"],
+.eui-form-view.eui-docstatus-1 .page-head {
+	border-top: 2px solid var(--eui-success);
+}
+
+.eui-form-view.eui-docstatus-2 .page-head {
+	border-top: 2px solid var(--eui-danger);
+}
+
+@media print {
+	.eui-form-view,
+	.eui-form-view * {
+		box-shadow: none !important;
+	}
+}
+
+/* ===== sections.css ===== */
+/**
+ * Section Break presentation + Enterprise Auto Grid.
+ *
+ * Layout precedence (CSS cooperates with form_enhancer.js markers):
+ *   1. DocType Layout / Column Break  → .eui-native-columns (no auto split)
+ *   2. Enterprise Form Configuration  → data-eui-grid="1|2|3"
+ *   3. Auto Grid                      → data-eui-grid="2" on the single column
+ *   4. Native fallback                → untouched section
+ *
+ * The grid is on `.form-column[data-eui-grid] > form` because that <form>
+ * is the parent of the .frappe-control wrappers in Frappe v16.
+ * display:contents is not used. Fields are never moved.
+ */
+
+.eui-form-view .form-section.card-section,
+.eui-form-view .form-dashboard-section {
+	background: var(--eui-section-bg);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-section-radius);
+	box-shadow: var(--eui-shadow-soft);
+	margin: 0 auto var(--eui-section-gap);
+	padding: 0;
+	overflow: visible;
+}
+
+.eui-form-view .form-section.card-section.hide-border {
+	border: 1px solid var(--eui-border);
+	box-shadow: none;
+	background: var(--eui-section-bg);
+}
+
+.eui-form-view .form-section .section-head {
+	padding: 14px var(--eui-section-padding) 0;
+	color: var(--eui-text);
+	font-size: var(--eui-section-title-size);
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.35;
+	text-transform: none;
+	max-width: none;
+}
+
+.eui-form-view .form-section .section-head .collapse-indicator {
+	color: var(--eui-text-muted);
+}
+
+.eui-form-view .form-section .section-body,
+.eui-form-view .form-section > .section-body:first-child {
+	padding: 12px var(--eui-section-padding) var(--eui-section-padding);
+	row-gap: var(--eui-field-row-gap);
+	column-gap: var(--eui-field-col-gap);
+	max-width: none;
+	margin-top: 0;
+}
+
+.eui-form-view .form-section .form-column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--eui-field-row-gap);
+	min-width: 0;
+}
+
+.eui-form-view .form-section .form-column > form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--eui-field-row-gap);
+	min-width: 0;
+	width: 100%;
+}
+
+.eui-form-view .form-section .form-column > .frappe-control,
+.eui-form-view .form-section .form-column > .form-group,
+.eui-form-view .form-section .form-column > form > .frappe-control {
+	margin-bottom: 0;
+}
+
+.eui-form-view .form-section-description {
+	color: var(--eui-text-muted);
+	padding: 0 var(--eui-section-padding);
+	margin-bottom: 4px;
+	font-size: var(--eui-section-subtitle-size);
+}
+
+/* ------------------------------------------------------------------ */
+/* Auto Grid — target the <form> that directly owns field wrappers     */
+/* DOM (Frappe v16):                                                   */
+/*   .section-body > .form-column > form > .frappe-control             */
+/* ------------------------------------------------------------------ */
+
+/* Column Break with only hidden fields. Do not leave it as an empty flex slot. */
+.eui-form-view .form-section > .section-body > .form-column.eui-column-vacant {
+	display: none;
+}
+
+.eui-form-view .form-section .form-column[data-eui-grid] {
+	display: block;
+	flex: 0 0 100%;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	container-type: inline-size;
+	container-name: eui-fields;
+}
+
+/* Do not also select `form.eui-auto-grid` here. That extra class made this
+   1-column rule more specific than the 2-column container query, so desktop
+   Auto Grid never left a single track. */
+.eui-form-view .form-section .form-column[data-eui-grid] > form {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	grid-auto-flow: row;
+	column-gap: var(--eui-grid-gap-x);
+	row-gap: var(--eui-grid-gap-y);
+	align-items: start;
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+}
+
+/* Frappe caps single-column fields at 50%. Inside the grid, each cell is the width. */
+.eui-form-view .layout-main .form-column[data-eui-grid] > form > .input-max-width,
+.eui-form-view .form-section .form-column[data-eui-grid] > form > .frappe-control,
+.eui-form-view .form-section .form-column[data-eui-grid] > form > .form-group {
+	max-width: none;
+	width: auto;
+	padding-right: 0;
+	min-width: 0;
+}
+
+/* Hidden / depends_on fields drop out of the grid. No reserved cells. */
+.eui-form-view .form-column[data-eui-grid] > form > .hide-control,
+.eui-form-view .form-column[data-eui-grid] > form > .hide {
+	display: none !important;
+}
+
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="1"] {
+	grid-column: span 1;
+	min-width: 0;
+}
+
+.eui-form-view .form-column[data-eui-grid="3"] > form > .frappe-control[data-eui-span="2"] {
+	grid-column: span 2;
+}
+
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="full"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Table"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Table MultiSelect"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Text Editor"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Small Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Long Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Code"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="HTML"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Markdown Editor"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Markdown"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="JSON"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Heading"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Signature"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Geolocation"] {
+	grid-column: 1 / -1;
+}
+
+/* Two equal columns once the column itself is about 640px.
+   Tuned on a real form: below that, each input gets too narrow.
+   The `form.eui-auto-grid` selector keeps this at least as specific as the
+   single-track rule, so it wins when the container matches. */
+@container eui-fields (min-width: 560px) {
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form.eui-auto-grid,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* 3 columns only when configuration set data-eui-grid="3" and width allows. */
+@container eui-fields (min-width: 1040px) {
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* Native columns — keep Frappe's own column breaks. Do not re-grid them.
+   column-gap must stay 0. Frappe sizes columns with flex-basis 50% / 33% / 25%.
+   Adding a gap makes 50% + 50% + gap exceed the row, so the second column
+   wraps underneath and the section looks like one long field list. */
+.eui-form-view .form-section.eui-native-columns > .section-body {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	column-gap: 0;
+	row-gap: 0;
+	container-type: inline-size;
+	container-name: eui-section;
+}
+
+@container eui-section (max-width: 559px) {
+	.eui-form-view .form-section.eui-native-columns > .section-body > .form-column {
+		flex: 0 0 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+}
+
+/* Rich section — only when metadata exists */
+.eui-form-view[data-eui-section-style="Rich"] .form-section .section-head,
+.eui-form-view .form-section.eui-section-rich .section-head {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding-top: 16px;
+	font-size: 14px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.eui-form-view .form-section .eui-section-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 8px;
+	background: var(--eui-primary-soft);
+	color: var(--eui-primary);
+	flex: 0 0 auto;
+}
+
+.eui-form-view .form-section .eui-section-icon .icon,
+.eui-form-view .form-section .eui-section-icon svg {
+	width: 16px;
+	height: 16px;
+}
+
+.eui-form-view .form-section .eui-section-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.eui-form-view .form-section .eui-section-subtitle {
+	font-size: var(--eui-section-subtitle-size);
+	font-weight: 450;
+	color: var(--eui-text-muted);
+	letter-spacing: 0;
+	width: 100%;
+	flex-basis: 100%;
+	padding-left: 0;
+}
+
+.eui-form-view .form-section.eui-section-rich .eui-section-icon + .eui-section-subtitle,
+.eui-form-view .form-section.eui-section-rich .section-head > .eui-section-subtitle {
+	padding-left: 38px;
+	margin-top: -4px;
+}
+
+.eui-form-view .empty-section {
+	display: none !important;
+}
+
+/* ===== controls.css ===== */
+/**
+ * Native Frappe control restyling — Desk Form View only (.eui-form-view).
+ * Top-aligned labels only (no floating / Google-style labels).
+ * Do not break Link autocomplete, date pickers, file upload, or ARIA.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Base field                                                          */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control {
+	margin-bottom: 0;
+	min-width: 0;
+}
+
+.eui-form-view .frappe-control .form-group {
+	margin-bottom: 0;
+}
+
+/* Top-aligned labels — always above the control */
+.eui-form-view .control-label,
+.eui-form-view .frappe-control .label-area,
+.eui-form-view .frappe-control label.control-label,
+.eui-form-view .frappe-control.eui-top-label .control-label {
+	display: block;
+	position: static;
+	transform: none;
+	font-size: var(--eui-label-size);
+	font-weight: var(--eui-label-weight);
+	letter-spacing: 0;
+	color: var(--eui-label-color);
+	margin: 0 0 var(--eui-label-gap);
+	line-height: 1.3;
+	max-width: 100%;
+	white-space: normal;
+	pointer-events: auto;
+	background: transparent;
+}
+
+/* Required: only the asterisk is semantic red */
+.eui-form-view .frappe-control[data-required="true"] .control-label::after,
+.eui-form-view .frappe-control .reqd::before,
+.eui-form-view .frappe-control .control-label .reqd,
+.eui-form-view .frappe-control .label-area .reqd {
+	color: var(--eui-danger);
+	font-weight: 700;
+}
+
+.eui-form-view .frappe-control[data-required="true"] .control-label {
+	color: var(--eui-label-color);
+}
+
+/* ------------------------------------------------------------------ */
+/* Outlined inputs — light surface, clear border                       */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .form-control:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]),
+.eui-form-view input.input-with-feedback:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]),
+.eui-form-view select.input-with-feedback,
+.eui-form-view textarea.input-with-feedback,
+.eui-form-view .awesomplete > input,
+.eui-form-view .frappe-control input[type="text"],
+.eui-form-view .frappe-control input[type="password"],
+.eui-form-view .frappe-control input[type="email"],
+.eui-form-view .frappe-control input[type="number"],
+.eui-form-view .frappe-control input[type="tel"],
+.eui-form-view .frappe-control select,
+.eui-form-view .frappe-control textarea:not([data-fieldtype="Code"]) {
+	min-height: var(--eui-control-height);
+	height: var(--eui-control-height);
+	border-radius: var(--eui-control-radius);
+	border: var(--eui-input-border-width) solid var(--eui-input-border);
+	background-color: var(--eui-input-bg);
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	box-shadow: none;
+	padding: 0 12px;
+	line-height: calc(var(--eui-control-height) - 2px);
+	transition:
+		border-color var(--eui-transition-fast) var(--eui-ease),
+		background-color var(--eui-transition-fast) var(--eui-ease),
+		box-shadow var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .form-control::placeholder,
+.eui-form-view input.input-with-feedback::placeholder,
+.eui-form-view textarea.input-with-feedback::placeholder {
+	color: var(--eui-text-placeholder);
+	opacity: 1;
+}
+
+.eui-form-view .frappe-control textarea,
+.eui-form-view textarea.input-with-feedback {
+	min-height: 88px;
+	height: auto;
+	padding: 8px 12px;
+	resize: vertical;
+	line-height: 1.45;
+}
+
+/* Hover */
+.eui-form-view .form-control:hover,
+.eui-form-view input.input-with-feedback:hover,
+.eui-form-view select.input-with-feedback:hover,
+.eui-form-view textarea.input-with-feedback:hover,
+.eui-form-view .awesomplete > input:hover {
+	border-color: var(--eui-input-border-hover);
+	background-color: var(--eui-input-bg-hover);
+}
+
+/* Focus */
+.eui-form-view .form-control:focus,
+.eui-form-view input.input-with-feedback:focus,
+.eui-form-view select.input-with-feedback:focus,
+.eui-form-view textarea.input-with-feedback:focus,
+.eui-form-view .awesomplete > input:focus,
+.eui-form-view .frappe-control:focus-within .form-control,
+.eui-form-view .frappe-control:focus-within input.input-with-feedback,
+.eui-form-view .frappe-control:focus-within select.input-with-feedback,
+.eui-form-view .frappe-control:focus-within textarea.input-with-feedback {
+	border-color: var(--eui-input-border-focus);
+	border-width: var(--eui-input-border-width);
+	background-color: var(--eui-input-bg-focus);
+	box-shadow: var(--eui-focus-ring);
+	outline: none;
+}
+
+/* Disabled */
+.eui-form-view .form-control:disabled,
+.eui-form-view input.input-with-feedback:disabled,
+.eui-form-view select.input-with-feedback:disabled,
+.eui-form-view textarea.input-with-feedback:disabled {
+	opacity: 0.65;
+	cursor: not-allowed;
+	background-color: var(--eui-input-bg-readonly);
+}
+
+/* Filled variant (opt-in) */
+.eui-form-view[data-eui-control-variant="Filled"] .form-control,
+.eui-form-view[data-eui-control-variant="Filled"] input.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] select.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] textarea.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] .awesomplete > input,
+.eui-form-view .frappe-control.eui-field--filled .form-control,
+.eui-form-view .frappe-control.eui-field--filled input.input-with-feedback {
+	background-color: var(--eui-input-filled-bg);
+	border-color: var(--eui-input-filled-border);
+	border-bottom: 1.5px solid var(--eui-input-border);
+	border-radius: var(--eui-control-radius) var(--eui-control-radius) 4px 4px;
+}
+
+.eui-form-view[data-eui-control-variant="Filled"] .form-control:hover,
+.eui-form-view .frappe-control.eui-field--filled .form-control:hover {
+	background-color: var(--eui-input-filled-bg-hover);
+}
+
+/* Read-only — light surface + thin border (not heavy grey fill); still non-editable */
+.eui-form-view .frappe-control .control-value,
+.eui-form-view .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype] .control-input-wrapper .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Data"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Select"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Read Only"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Link"] .like-disabled-input {
+	background: var(--eui-input-bg, #ffffff);
+	border: var(--eui-input-border-width) solid var(--eui-input-border, #d1d5db);
+	border-radius: var(--eui-control-radius);
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	min-height: var(--eui-control-height);
+	padding: 8px 12px;
+	opacity: 1;
+	box-shadow: none;
+	display: flex;
+	align-items: center;
+	cursor: default;
+	pointer-events: none;
+}
+
+[data-theme="dark"] .eui-form-view .like-disabled-input,
+[data-theme="dark"] .eui-form-view .frappe-control .control-value {
+	background: var(--eui-surface, #1a222d);
+	border-color: var(--eui-input-border, #3a4556);
+}
+
+/* Numeric alignment */
+.eui-form-view .frappe-control[data-fieldtype="Currency"] input,
+.eui-form-view .frappe-control[data-fieldtype="Float"] input,
+.eui-form-view .frappe-control[data-fieldtype="Int"] input,
+.eui-form-view .frappe-control[data-fieldtype="Percent"] input {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Select — one Enterprise chevron; hide native dual arrows (form + child grids) */
+.eui-form-view .frappe-control[data-fieldtype="Select"] select,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select.form-control,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select.input-with-feedback,
+.eui-form-view .form-grid select.input-with-feedback,
+.eui-form-view .form-grid select.form-control,
+.eui-form-view .grid-row select,
+.eui-form-view .grid-static-col select,
+.eui-form-view select.input-with-feedback:not([multiple]) {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding-right: 32px !important;
+	cursor: pointer;
+	background-color: var(--eui-input-bg);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 14px 14px;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Select"] select::-ms-expand,
+.eui-form-view .form-grid select::-ms-expand,
+.eui-form-view select.input-with-feedback::-ms-expand {
+	display: none;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Select"] select:disabled,
+.eui-form-view .form-grid select:disabled {
+	cursor: not-allowed;
+	opacity: 0.65;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Date"] .datepicker--pointer,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select {
+	cursor: pointer;
+}
+
+/* Do not strip number spinners globally — only Select above uses appearance:none */
+
+/* ------------------------------------------------------------------ */
+/* Helper / error                                                      */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control .help-box,
+.eui-form-view .frappe-control .help,
+.eui-form-view .frappe-control .help-box.small {
+	color: var(--eui-text-muted);
+	font-size: var(--eui-helper-size);
+	margin-top: 4px;
+	margin-bottom: 0;
+	line-height: 1.45;
+}
+
+.eui-form-view .frappe-control.has-error .form-control,
+.eui-form-view .frappe-control.has-error input.input-with-feedback,
+.eui-form-view .frappe-control.has-error select.input-with-feedback,
+.eui-form-view .frappe-control.has-error textarea.input-with-feedback,
+.eui-form-view .frappe-control.has-error .awesomplete > input,
+.eui-form-view .frappe-control.eui-invalid .form-control,
+.eui-form-view .frappe-control.eui-invalid input.input-with-feedback,
+.eui-form-view .frappe-control.eui-invalid select.input-with-feedback,
+.eui-form-view .frappe-control.eui-invalid textarea.input-with-feedback {
+	border: var(--eui-input-border-width) solid var(--eui-danger);
+	box-shadow: 0 0 0 3px var(--eui-danger-soft, rgba(185, 28, 28, 0.12));
+	background-color: var(--eui-input-bg-focus);
+}
+
+/* Error: keep label neutral; only border + helper go red */
+.eui-form-view .frappe-control.has-error .control-label,
+.eui-form-view .frappe-control.eui-invalid .control-label {
+	color: var(--eui-label-color);
+}
+
+.eui-form-view .frappe-control.has-error .help-box,
+.eui-form-view .frappe-control.eui-invalid .help-box,
+.eui-form-view .frappe-control .eui-field-error {
+	color: var(--eui-danger);
+	font-size: var(--eui-helper-size);
+	margin-top: 4px;
+	display: flex;
+	align-items: flex-start;
+	gap: 5px;
+}
+
+.eui-form-view .frappe-control .eui-field-error::before {
+	content: "⚠";
+	flex: 0 0 auto;
+	font-size: 11px;
+	line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ */
+/* Checkbox — 16px box, ~32px hit row, not an input rectangle          */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view {
+	--checkbox-size: var(--eui-checkbox-size);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"],
+.eui-form-view .frappe-control.eui-field-check {
+	display: flex;
+	align-items: center;
+	align-self: center;
+	min-height: var(--eui-checkbox-hit);
+	height: auto;
+	padding: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .checkbox,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .form-group,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-input-wrapper,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .input-area,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .disp-area {
+	border: none !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	min-height: 0 !important;
+	height: auto !important;
+	width: auto !important;
+	max-width: none !important;
+	padding: 0 !important;
+	margin: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .checkbox,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .label-area {
+	display: flex;
+	align-items: center;
+	min-height: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] label,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .label-area label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	min-height: var(--eui-checkbox-hit);
+	padding: 0;
+	margin: 0;
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	font-weight: 500;
+	line-height: 1.3;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-label {
+	display: none;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"],
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"].input-with-feedback,
+.eui-form-view input[type="checkbox"].input-with-feedback {
+	appearance: none;
+	-webkit-appearance: none;
+	accent-color: var(--eui-primary);
+	width: var(--eui-checkbox-size) !important;
+	height: var(--eui-checkbox-size) !important;
+	min-width: var(--eui-checkbox-size) !important;
+	min-height: var(--eui-checkbox-size) !important;
+	max-width: var(--eui-checkbox-size) !important;
+	max-height: var(--eui-checkbox-size) !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	flex: 0 0 var(--eui-checkbox-size);
+	border-radius: 4px;
+	border: 1px solid var(--eui-input-border-hover) !important;
+	background-color: var(--eui-input-bg) !important;
+	background-image: none;
+	box-shadow: none !important;
+	cursor: pointer;
+	line-height: var(--eui-checkbox-size);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked,
+.eui-form-view input[type="checkbox"].input-with-feedback:checked {
+	background-color: var(--eui-primary) !important;
+	border-color: var(--eui-primary) !important;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 10px 8px;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Link / date dropdowns                                               */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .awesomplete > ul,
+.eui-form-view .frappe-control .link-btn,
+.eui-form-view .datepicker,
+.eui-form-view .datepicker--pointer,
+.eui-form-view .datepicker-dropdown {
+	z-index: 1060;
+}
+
+.eui-form-view .awesomplete {
+	width: 100%;
+}
+
+.eui-form-view .awesomplete > ul {
+	min-width: 100%;
+	width: max(100%, 220px);
+	max-width: min(480px, 90vw);
+	margin-top: 4px;
+	padding: 6px;
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-dropdown-radius);
+	background: var(--eui-surface);
+	box-shadow: var(--eui-shadow-dropdown);
+	overflow: hidden;
+}
+
+.eui-form-view .awesomplete > ul > li {
+	padding: 8px 10px;
+	border-radius: 6px;
+	margin: 0;
+	line-height: 1.35;
+	color: var(--eui-text);
+}
+
+.eui-form-view .awesomplete > ul > li[aria-selected="true"],
+.eui-form-view .awesomplete > ul > li:hover {
+	background: var(--eui-primary-soft);
+	color: var(--eui-text);
+}
+
+.eui-form-view .awesomplete > ul > li p,
+.eui-form-view .awesomplete > ul > li .small,
+.eui-form-view .awesomplete > ul > li .text-muted {
+	color: var(--eui-text-muted);
+	font-size: 11.5px;
+	margin: 2px 0 0;
+}
+
+.eui-form-view .form-section,
+.eui-form-view .section-body,
+.eui-form-view .form-column,
+.eui-form-view .control-input-wrapper,
+.eui-form-view .frappe-control,
+.eui-form-view .form-page {
+	overflow: visible;
+}
+
+/* ------------------------------------------------------------------ */
+/* Attach / Attach Image — compact dropzone                            */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .control-input {
+	min-height: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .attached-file,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .attached-file,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .img-container,
+.eui-form-view .frappe-control.eui-dropzone .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .control-input {
+	border-radius: var(--eui-control-radius);
+	border: 1.5px dashed var(--eui-input-border-hover);
+	background: var(--eui-surface-muted);
+	padding: 12px 14px;
+	min-height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	transition:
+		border-color var(--eui-transition-fast) var(--eui-ease),
+		background-color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .attached-file:hover,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .attached-file:hover,
+.eui-form-view .frappe-control.eui-dropzone .control-input:hover {
+	border-color: var(--eui-input-border-hover);
+	background: var(--eui-input-bg-hover);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] img {
+	border-radius: var(--eui-radius-sm);
+	max-height: 120px;
+}
+
+.eui-form-view .frappe-control .eui-dropzone-hint {
+	text-align: center;
+	color: var(--eui-text-muted);
+	font-size: var(--eui-helper-size);
+	line-height: 1.4;
+	pointer-events: none;
+}
+
+.eui-form-view .frappe-control .eui-dropzone-hint strong {
+	display: block;
+	color: var(--eui-text);
+	font-weight: 600;
+	font-size: var(--eui-label-size);
+	margin-bottom: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Text Editor                                                         */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .ql-toolbar.ql-snow,
+.eui-form-view .ql-container.ql-snow {
+	border-color: var(--eui-input-border);
+	border-radius: var(--eui-control-radius);
+	background: var(--eui-input-bg);
+}
+
+.eui-form-view .ql-toolbar.ql-snow {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.eui-form-view .ql-container.ql-snow {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Color"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Duration"] .control-input {
+	min-height: var(--eui-control-height);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Heading"] .control-label,
+.eui-form-view .frappe-control[data-fieldtype="Heading"] .label-area {
+	font-size: 14px;
+	font-weight: 650;
+	color: var(--eui-text);
+	margin-bottom: 0;
+}
+
+html[data-theme="dark"] .eui-form-view .ql-toolbar.ql-snow,
+html[data-theme="dark"] .eui-form-view .ql-container.ql-snow,
+html[data-theme="dark"] .eui-form-view .ql-editor,
+html[data-theme="dark"] .eui-form-view .ace_editor {
+	background: var(--eui-input-bg);
+	color: var(--eui-text);
+	border-color: var(--eui-input-border);
+}
+
+/* ===== tabs.css ===== */
+/**
+ * Native Form tabs — compact underline indicator, horizontal scroll on overflow.
+ */
+
+.eui-form-view .form-tabs-list {
+	background: transparent;
+	border-bottom: 1px solid var(--eui-border);
+	padding: 0 2px;
+	margin-bottom: 12px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: thin;
+	-webkit-overflow-scrolling: touch;
+}
+
+.eui-form-view .form-tabs {
+	gap: 0;
+	flex-wrap: nowrap;
+	min-width: max-content;
+}
+
+.eui-form-view .form-tabs .nav-link,
+.eui-form-view .form-tabs .nav-item .nav-link {
+	border: none;
+	border-radius: 0;
+	padding: 0 12px;
+	min-height: 38px;
+	height: 38px;
+	font-size: var(--eui-tab-size);
+	font-weight: 600;
+	color: var(--eui-text-muted);
+	background: transparent;
+	white-space: nowrap;
+	line-height: 38px;
+	transition: color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .form-tabs .nav-link:hover {
+	color: var(--eui-text);
+	background: transparent;
+}
+
+.eui-form-view .form-tabs .nav-link.active,
+.eui-form-view .form-tabs .nav-item .nav-link.active {
+	color: var(--eui-primary);
+	background: transparent;
+	box-shadow: inset 0 -2px 0 var(--eui-primary);
+}
+
+.eui-form-view .form-tabs .nav-link:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring);
+	border-radius: 6px;
+}
+
+/* ===== grids.css ===== */
+/**
+ * Native Frappe Grid restyling — keep Grid engine intact.
+ * Compact professional table; never turn rows into cards.
+ */
+
+.eui-form-view[data-eui-grids="1"] .form-grid {
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+	overflow: hidden;
+	background: var(--eui-surface);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-heading-row {
+	background: var(--eui-surface-muted);
+	border-bottom: 1px solid var(--eui-border);
+	min-height: var(--eui-grid-row-height);
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--eui-text-muted);
+	letter-spacing: 0.01em;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row {
+	min-height: var(--eui-grid-row-height);
+	border-bottom: 1px solid var(--eui-border);
+	transition: background-color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row:last-child {
+	border-bottom: none;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row:hover {
+	background: var(--eui-primary-soft);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row.grid-row-open,
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row.grid-row-current-row {
+	background: var(--eui-surface);
+	box-shadow: inset 2px 0 0 var(--eui-primary);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-static-col,
+.eui-form-view[data-eui-grids="1"] .form-grid .row-check,
+.eui-form-view[data-eui-grids="1"] .form-grid .row-index {
+	border-right: 1px solid var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-row .col:last-child {
+	text-align: inherit;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-footer,
+.eui-form-view[data-eui-grids="1"] .form-grid-buttons {
+	padding: 8px 12px;
+	background: var(--eui-surface);
+	border-top: 1px solid var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-buttons .btn,
+.eui-form-view[data-eui-grids="1"] .grid-footer .btn {
+	border-radius: var(--eui-control-radius);
+	font-weight: 600;
+	min-height: 30px;
+	font-size: 12px;
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-add-row,
+.eui-form-view[data-eui-grids="1"] .grid-buttons .grid-add-row {
+	border: 1px dashed var(--eui-input-border);
+	background: var(--eui-surface-muted);
+	color: var(--eui-text);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-in-grid,
+.eui-form-view[data-eui-grids="1"] .grid-form-heading,
+.eui-form-view[data-eui-grids="1"] .form-grid .form-in-grid {
+	background: var(--eui-surface-muted);
+	border-color: var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-row-open .form-section {
+	margin-bottom: 10px;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Currency"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Float"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Int"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Percent"] {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Child-table Select: same single chevron as form Select */
+.eui-form-view[data-eui-grids="1"] .form-grid select,
+.eui-form-view[data-eui-grids="1"] .grid-row-open select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding-right: 28px !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 14px 14px;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid select::-ms-expand {
+	display: none;
+}
+
+/* ===== sidebar.css ===== */
+/**
+ * Native form sidebar restyle — preserve Assigned To, Attachments, Tags, Share.
+ */
+
+.eui-form-view .form-sidebar,
+.eui-form-view .layout-side-section {
+	background: var(--eui-surface);
+	border-left: 1px solid var(--eui-border);
+}
+
+.eui-form-view .form-sidebar .sidebar-menu,
+.eui-form-view .form-sidebar .form-tags,
+.eui-form-view .form-sidebar .form-shared,
+.eui-form-view .form-sidebar .form-follow,
+.eui-form-view .form-sidebar .form-stats {
+	border-color: var(--eui-border);
+}
+
+.eui-form-view .form-sidebar .sidebar-label,
+.eui-form-view .form-sidebar .form-sidebar-stats li {
+	color: var(--eui-text-muted);
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.02em;
+}
+
+.eui-form-view .form-sidebar a,
+.eui-form-view .form-sidebar .sidebar-menu li {
+	color: var(--eui-text);
+}
+
+.eui-form-view .form-sidebar .btn,
+.eui-form-view .form-sidebar .attachments-actions .btn {
+	border-radius: var(--eui-control-radius);
+}
+
+.eui-form-view .form-sidebar .form-attachments,
+.eui-form-view .form-sidebar .attachment-row {
+	border-color: var(--eui-border);
+}
+
+/* ===== timeline.css ===== */
+/**
+ * Native timeline / comments — visual cleanup only.
+ */
+
+.eui-form-view[data-eui-timeline="1"] .timeline-item,
+.eui-form-view[data-eui-timeline="1"] .new-timeline .timeline-item {
+	border-color: var(--eui-border);
+}
+
+.eui-form-view[data-eui-timeline="1"] .comment-box,
+.eui-form-view[data-eui-timeline="1"] .timeline-content,
+.eui-form-view[data-eui-timeline="1"] .new-timeline .timeline-content {
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+}
+
+.eui-form-view[data-eui-timeline="1"] .comment-input-wrapper,
+.eui-form-view[data-eui-timeline="1"] .comment-box .comment-input-container {
+	border-radius: var(--eui-radius-md);
+	border-color: var(--eui-input-border);
+	background: var(--eui-input-bg);
+}
+
+.eui-form-view[data-eui-timeline="1"] .timeline-dot,
+.eui-form-view[data-eui-timeline="1"] .timeline-badge {
+	background: var(--eui-primary-soft);
+	color: var(--eui-primary);
+}
+
+/* ===== pages.css ===== */
+/**
+ * Opt-in custom page / report / dashboard presentation.
+ * Apply .eui-page (and related) explicitly — do NOT restyle all Desk pages.
+ */
+
+.eui-page {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	padding: 16px 20px 24px;
+	min-width: 0;
+}
+
+/* Desk page-container already offsets for Enterprise Shell sidebar —
+   do not double-apply horizontal gutters there. */
+.content.page-container.eui-page {
+	padding-top: 0;
+	padding-bottom: 0;
+	/* left/right come from Shell; keep vertical rhythm on .layout-main-section */
+}
+
+.eui-page-toolbar,
+.eui-page .page-head,
+.eui-page .page-form {
+	margin-bottom: 12px;
+}
+
+.eui-page-filters,
+.eui-page .page-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 14px;
+	align-items: flex-end;
+	padding: 10px 12px;
+	background: var(--eui-surface, #fff);
+	border: 1px solid var(--eui-border, #e5e7eb);
+	border-radius: var(--eui-radius-md, 8px);
+}
+
+.eui-page-filters .frappe-control,
+.eui-page .page-form .frappe-control {
+	margin-bottom: 0;
+	min-width: 160px;
+}
+
+/* Shared table surface (reports / custom pages) */
+.eui-table,
+.eui-table-host .datatable,
+.eui-report-page .datatable {
+	border: 1px solid var(--eui-border, #e5e7eb);
+	border-radius: var(--eui-radius-md, 8px);
+	overflow: hidden;
+	background: var(--eui-surface, #fff);
+	width: 100%;
+	min-width: 0;
+}
+
+.eui-table-host {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.eui-report-page .datatable .dt-header .dt-cell,
+.eui-table .dt-header .dt-cell {
+	background: var(--eui-surface-muted, #f7f8fa);
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--eui-text-muted, #4b5563);
+	letter-spacing: 0.01em;
+	border-bottom: 1px solid var(--eui-border, #e5e7eb);
+}
+
+.eui-report-page .datatable .dt-row .dt-cell,
+.eui-table .dt-row .dt-cell {
+	border-bottom: 1px solid var(--eui-border, #eef0f3);
+	font-size: 13px;
+	color: var(--eui-text, #111827);
+}
+
+.eui-report-page .datatable .dt-row:hover .dt-cell,
+.eui-table .dt-row:hover .dt-cell {
+	background: var(--eui-primary-soft, rgba(47, 111, 191, 0.08));
+}
+
+/* Hide DataTable inline filter row when present despite inlineFilters:false */
+.eui-report-page .datatable .dt-filter,
+.eui-report-page .datatable .filter-row,
+.eui-table-host .dt-filter {
+	display: none !important;
+}
+
+.eui-empty-state {
+	padding: 28px 16px;
+	text-align: center;
+	color: var(--eui-text-muted, #6b7280);
+	background: var(--eui-surface, #fff);
+	border: 1px dashed var(--eui-border, #e5e7eb);
+	border-radius: var(--eui-radius-md, 8px);
+	margin-top: 12px;
+}
+
+.eui-empty-state p {
+	margin: 0;
+	font-size: 13px;
+}
+
+.eui-pagination {
+	margin-top: 12px;
+	padding: 10px 12px;
+	background: var(--eui-surface, #fff);
+	border: 1px solid var(--eui-border, #e5e7eb);
+	border-radius: var(--eui-radius-md, 8px);
+}
+
+.eui-pagination-inner {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 16px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.eui-pagination-summary {
+	font-size: 12px;
+	color: var(--eui-text-muted, #4b5563);
+}
+
+.eui-pagination-lengths {
+	display: inline-flex;
+	gap: 4px;
+}
+
+.eui-pagination-lengths .btn {
+	min-width: 36px;
+	font-weight: 600;
+}
+
+.eui-pagination-nav {
+	display: inline-flex;
+	gap: 8px;
+}
+
+/* Dashboard grid helpers — beat shared .ec-ap-kpis fixed column counts */
+.eui-dashboard-grid,
+.eui-page .ec-ap-kpis.eui-dashboard-kpis,
+.eui-page.ec-hrm-dashboard-page .ec-ap-kpis,
+.ec-hrm-dashboard-page .ec-ap-kpis.eui-dashboard-grid,
+.ec-hrm-dashboard-page.eui-page .ec-hrm-kpis,
+.layout-main-section.ec-hrm-dashboard-main .ec-ap-kpis {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+	gap: 14px;
+	margin-bottom: 16px;
+	width: 100%;
+	min-width: 0;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap,
+.ec-hrm-dashboard-page.eui-page .ec-ap,
+.layout-main-section.ec-hrm-dashboard-main.eui-page {
+	width: 100%;
+	box-sizing: border-box;
+	min-width: 0;
+}
+
+.layout-main-section.ec-hrm-dashboard-main.eui-page {
+	padding: 16px 20px 24px !important;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-kpi,
+.ec-hrm-dashboard-page.eui-page .ec-ap-kpi,
+.layout-main-section.ec-hrm-dashboard-main .ec-ap-kpi {
+	min-height: 0 !important;
+	padding: 14px 16px;
+	box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-kpi-value,
+.ec-hrm-dashboard-page.eui-page .ec-ap-kpi-value {
+	font-size: 22px;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-kpi-sub,
+.ec-hrm-dashboard-page.eui-page .ec-ap-kpi-sub {
+	font-size: 11px;
+	opacity: 0.72;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-grid,
+.ec-hrm-dashboard-page.eui-page .ec-ap-grid,
+.layout-main-section.ec-hrm-dashboard-main .ec-ap-grid {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+	gap: 16px;
+	margin-bottom: 16px;
+	width: 100%;
+	min-width: 0;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-panel,
+.ec-hrm-dashboard-page.eui-page .ec-ap-panel,
+.layout-main-section.ec-hrm-dashboard-main .ec-ap-panel {
+	min-height: 0 !important;
+	min-width: 0;
+	width: 100%;
+	padding: 16px 18px;
+	box-sizing: border-box;
+}
+
+.eui-page.ec-hrm-dashboard-page .ec-ap-chart-host,
+.eui-page.ec-hrm-dashboard-page .ec-ap-chart-canvas,
+.ec-hrm-dashboard-page.eui-page .ec-ap-chart-host,
+.ec-hrm-dashboard-page.eui-page .ec-ap-chart-canvas,
+.layout-main-section.ec-hrm-dashboard-main .ec-ap-chart-host {
+	width: 100%;
+	min-width: 0;
+	min-height: 220px;
+}
+
+.eui-page.ec-hrm-dashboard-page .page-actions .btn,
+.ec-hrm-dashboard-page.eui-page .page-head .btn {
+	min-height: 30px;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 4px 10px;
+}
+
+@media (max-width: 991.98px) {
+	.eui-page {
+		padding: 14px 16px 20px;
+	}
+
+	.layout-main-section.ec-hrm-dashboard-main.eui-page {
+		padding: 14px 16px 20px !important;
+	}
+
+	.eui-page.ec-hrm-dashboard-page .ec-ap-grid,
+	.ec-hrm-dashboard-page.eui-page .ec-ap-grid,
+	.layout-main-section.ec-hrm-dashboard-main .ec-ap-grid {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.eui-page {
+		padding: 12px 12px 16px;
+	}
+
+	.eui-pagination-inner {
+		flex-direction: column;
+		align-items: stretch;
+	}
+}
+
+/* ===== responsive.css ===== */
+/**
+ * Responsive behavior — container/breakpoint based, not device-name only.
+ *
+ * Desktop: Auto Grid 2 cols (optional 3 when configured)
+ * Tablet (~768–1024): 2 cols when space allows
+ * Mobile (<768): 1 column, no horizontal overflow
+ */
+
+@media (max-width: 1199px) {
+	.eui-form-view[data-eui-width="Medium"] .form-layout .form-page,
+	.eui-form-view[data-eui-width="Wide"] .form-layout .form-page,
+	.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-body,
+	.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-body,
+	.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-head,
+	.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-head,
+	.eui-form-view[data-eui-width="Medium"] .form-tabs-list,
+	.eui-form-view[data-eui-width="Wide"] .form-tabs-list {
+		max-width: 100%;
+	}
+
+	.eui-form-view .form-section .section-body {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.eui-form-view {
+		--eui-section-padding: 16px;
+		--eui-section-gap: 14px;
+		--eui-field-col-gap: 14px;
+	}
+
+	.eui-form-view .layout-side-section {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-head .title-text {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 767px) {
+	.eui-form-view {
+		--eui-section-padding: 14px;
+		--eui-section-gap: 12px;
+		--eui-control-height: 40px;
+		--eui-field-gap: 12px;
+		--eui-field-row-gap: 12px;
+		--eui-field-col-gap: 12px;
+	}
+
+	.eui-form-view .form-section.card-section {
+		border-radius: var(--eui-radius-md);
+	}
+
+	.eui-form-view .layout-side-section {
+		border-left: none;
+		border-top: 1px solid var(--eui-border);
+	}
+
+	.eui-form-view .form-tabs-list {
+		margin-left: -4px;
+		margin-right: -4px;
+		padding-left: 4px;
+		padding-right: 4px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-actions .btn-primary,
+	.eui-form-view[data-eui-header="1"] .page-actions .primary-action {
+		height: 32px;
+		min-height: 32px;
+		max-height: 32px;
+		padding: 0 10px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-head .page-head-content {
+		height: 48px;
+	}
+
+	/* Phone widths: one column even if a container query mis-measures */
+	.eui-form-view .form-section .form-column[data-eui-grid] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="1"],
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="2"],
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="full"] {
+		grid-column: 1 / -1;
+	}
+
+	/* Native multi-column sections also stack */
+	.eui-form-view .form-section.eui-native-columns > .section-body > .form-column {
+		flex: 0 0 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.eui-form-view .frappe-control[data-fieldtype="Text Editor"],
+	.eui-form-view .frappe-control[data-fieldtype="Table"],
+	.eui-form-view .frappe-control[data-fieldtype="Attach"],
+	.eui-form-view .frappe-control[data-fieldtype="Attach Image"],
+	.eui-form-view .frappe-control[data-fieldtype="HTML"],
+	.eui-form-view .frappe-control[data-fieldtype="Long Text"],
+	.eui-form-view .frappe-control[data-fieldtype="Code"] {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
+/* Never force horizontal scroll on normal fields */
+.eui-form-view .form-layout,
+.eui-form-view .form-page,
+.eui-form-view .section-body {
+	overflow-x: visible;
+}
+
+.eui-form-view .form-grid-container {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Desktop fallback when container queries are unavailable. */
+	@supports not (container-type: inline-size) {
+	@media (min-width: 992px) {
+		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form.eui-auto-grid,
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+}
+

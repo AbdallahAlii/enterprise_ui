@@ -1,0 +1,262 @@
+/**
+ * Section Break presentation + Enterprise Auto Grid.
+ *
+ * Layout precedence (CSS cooperates with form_enhancer.js markers):
+ *   1. DocType Layout / Column Break  → .eui-native-columns (no auto split)
+ *   2. Enterprise Form Configuration  → data-eui-grid="1|2|3"
+ *   3. Auto Grid                      → data-eui-grid="2" on the single column
+ *   4. Native fallback                → untouched section
+ *
+ * The grid is on `.form-column[data-eui-grid] > form` because that <form>
+ * is the parent of the .frappe-control wrappers in Frappe v16.
+ * display:contents is not used. Fields are never moved.
+ */
+
+.eui-form-view .form-section.card-section,
+.eui-form-view .form-dashboard-section {
+	background: var(--eui-section-bg);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-section-radius);
+	box-shadow: var(--eui-shadow-soft);
+	margin: 0 auto var(--eui-section-gap);
+	padding: 0;
+	overflow: visible;
+}
+
+.eui-form-view .form-section.card-section.hide-border {
+	border: 1px solid var(--eui-border);
+	box-shadow: none;
+	background: var(--eui-section-bg);
+}
+
+.eui-form-view .form-section .section-head {
+	padding: 14px var(--eui-section-padding) 0;
+	color: var(--eui-text);
+	font-size: var(--eui-section-title-size);
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.35;
+	text-transform: none;
+	max-width: none;
+}
+
+.eui-form-view .form-section .section-head .collapse-indicator {
+	color: var(--eui-text-muted);
+}
+
+.eui-form-view .form-section .section-body,
+.eui-form-view .form-section > .section-body:first-child {
+	padding: 12px var(--eui-section-padding) var(--eui-section-padding);
+	row-gap: var(--eui-field-row-gap);
+	column-gap: var(--eui-field-col-gap);
+	max-width: none;
+	margin-top: 0;
+}
+
+.eui-form-view .form-section .form-column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--eui-field-row-gap);
+	min-width: 0;
+}
+
+.eui-form-view .form-section .form-column > form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--eui-field-row-gap);
+	min-width: 0;
+	width: 100%;
+}
+
+.eui-form-view .form-section .form-column > .frappe-control,
+.eui-form-view .form-section .form-column > .form-group,
+.eui-form-view .form-section .form-column > form > .frappe-control {
+	margin-bottom: 0;
+}
+
+.eui-form-view .form-section-description {
+	color: var(--eui-text-muted);
+	padding: 0 var(--eui-section-padding);
+	margin-bottom: 4px;
+	font-size: var(--eui-section-subtitle-size);
+}
+
+/* ------------------------------------------------------------------ */
+/* Auto Grid — target the <form> that directly owns field wrappers     */
+/* DOM (Frappe v16):                                                   */
+/*   .section-body > .form-column > form > .frappe-control             */
+/* ------------------------------------------------------------------ */
+
+/* Column Break with only hidden fields. Do not leave it as an empty flex slot. */
+.eui-form-view .form-section > .section-body > .form-column.eui-column-vacant {
+	display: none;
+}
+
+.eui-form-view .form-section .form-column[data-eui-grid] {
+	display: block;
+	flex: 0 0 100%;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	container-type: inline-size;
+	container-name: eui-fields;
+}
+
+/* Do not also select `form.eui-auto-grid` here. That extra class made this
+   1-column rule more specific than the 2-column container query, so desktop
+   Auto Grid never left a single track. */
+.eui-form-view .form-section .form-column[data-eui-grid] > form {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	grid-auto-flow: row;
+	column-gap: var(--eui-grid-gap-x);
+	row-gap: var(--eui-grid-gap-y);
+	align-items: start;
+	width: 100%;
+	min-width: 0;
+	margin: 0;
+}
+
+/* Frappe caps single-column fields at 50%. Inside the grid, each cell is the width. */
+.eui-form-view .layout-main .form-column[data-eui-grid] > form > .input-max-width,
+.eui-form-view .form-section .form-column[data-eui-grid] > form > .frappe-control,
+.eui-form-view .form-section .form-column[data-eui-grid] > form > .form-group {
+	max-width: none;
+	width: auto;
+	padding-right: 0;
+	min-width: 0;
+}
+
+/* Hidden / depends_on fields drop out of the grid. No reserved cells. */
+.eui-form-view .form-column[data-eui-grid] > form > .hide-control,
+.eui-form-view .form-column[data-eui-grid] > form > .hide {
+	display: none !important;
+}
+
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="1"] {
+	grid-column: span 1;
+	min-width: 0;
+}
+
+.eui-form-view .form-column[data-eui-grid="3"] > form > .frappe-control[data-eui-span="2"] {
+	grid-column: span 2;
+}
+
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="full"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Table"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Table MultiSelect"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Text Editor"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Small Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Long Text"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Code"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="HTML"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Markdown Editor"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Markdown"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="JSON"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Heading"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Signature"],
+.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-fieldtype="Geolocation"] {
+	grid-column: 1 / -1;
+}
+
+/* Two equal columns once the column itself is about 640px.
+   Tuned on a real form: below that, each input gets too narrow.
+   The `form.eui-auto-grid` selector keeps this at least as specific as the
+   single-track rule, so it wins when the container matches. */
+@container eui-fields (min-width: 560px) {
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form.eui-auto-grid,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* 3 columns only when configuration set data-eui-grid="3" and width allows. */
+@container eui-fields (min-width: 1040px) {
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* Native columns — keep Frappe's own column breaks. Do not re-grid them.
+   column-gap must stay 0. Frappe sizes columns with flex-basis 50% / 33% / 25%.
+   Adding a gap makes 50% + 50% + gap exceed the row, so the second column
+   wraps underneath and the section looks like one long field list. */
+.eui-form-view .form-section.eui-native-columns > .section-body {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	column-gap: 0;
+	row-gap: 0;
+	container-type: inline-size;
+	container-name: eui-section;
+}
+
+@container eui-section (max-width: 559px) {
+	.eui-form-view .form-section.eui-native-columns > .section-body > .form-column {
+		flex: 0 0 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+}
+
+/* Rich section — only when metadata exists */
+.eui-form-view[data-eui-section-style="Rich"] .form-section .section-head,
+.eui-form-view .form-section.eui-section-rich .section-head {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding-top: 16px;
+	font-size: 14px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.eui-form-view .form-section .eui-section-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 8px;
+	background: var(--eui-primary-soft);
+	color: var(--eui-primary);
+	flex: 0 0 auto;
+}
+
+.eui-form-view .form-section .eui-section-icon .icon,
+.eui-form-view .form-section .eui-section-icon svg {
+	width: 16px;
+	height: 16px;
+}
+
+.eui-form-view .form-section .eui-section-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.eui-form-view .form-section .eui-section-subtitle {
+	font-size: var(--eui-section-subtitle-size);
+	font-weight: 450;
+	color: var(--eui-text-muted);
+	letter-spacing: 0;
+	width: 100%;
+	flex-basis: 100%;
+	padding-left: 0;
+}
+
+.eui-form-view .form-section.eui-section-rich .eui-section-icon + .eui-section-subtitle,
+.eui-form-view .form-section.eui-section-rich .section-head > .eui-section-subtitle {
+	padding-left: 38px;
+	margin-top: -4px;
+}
+
+.eui-form-view .empty-section {
+	display: none !important;
+}

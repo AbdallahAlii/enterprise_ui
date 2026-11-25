@@ -1,0 +1,54 @@
+/**
+ * Native Form tabs — compact underline indicator, horizontal scroll on overflow.
+ */
+
+.eui-form-view .form-tabs-list {
+	background: transparent;
+	border-bottom: 1px solid var(--eui-border);
+	padding: 0 2px;
+	margin-bottom: 12px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: thin;
+	-webkit-overflow-scrolling: touch;
+}
+
+.eui-form-view .form-tabs {
+	gap: 0;
+	flex-wrap: nowrap;
+	min-width: max-content;
+}
+
+.eui-form-view .form-tabs .nav-link,
+.eui-form-view .form-tabs .nav-item .nav-link {
+	border: none;
+	border-radius: 0;
+	padding: 0 12px;
+	min-height: 38px;
+	height: 38px;
+	font-size: var(--eui-tab-size);
+	font-weight: 600;
+	color: var(--eui-text-muted);
+	background: transparent;
+	white-space: nowrap;
+	line-height: 38px;
+	transition: color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .form-tabs .nav-link:hover {
+	color: var(--eui-text);
+	background: transparent;
+}
+
+.eui-form-view .form-tabs .nav-link.active,
+.eui-form-view .form-tabs .nav-item .nav-link.active {
+	color: var(--eui-primary);
+	background: transparent;
+	box-shadow: inset 0 -2px 0 var(--eui-primary);
+}
+
+.eui-form-view .form-tabs .nav-link:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring);
+	border-radius: 6px;
+}

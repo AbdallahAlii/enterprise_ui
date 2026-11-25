@@ -1,0 +1,192 @@
+/**
+ * Enterprise UI design tokens.
+ * Scoped application happens under .eui-form-view (see forms.css).
+ * Runtime boot may override brand/density --eui-* on :root via JS.
+ *
+ * Redesigns should prefer changing tokens here over per-selector literals.
+ *
+ * Spacing scale: 4 / 8 / 12 / 16 / 20 / 24 / 32
+ */
+
+:root {
+	/* Brand (shell may override) */
+	--eui-primary: #2f6fbf;
+	--eui-primary-hover: #275fa5;
+	--eui-primary-soft: rgba(47, 111, 191, 0.12);
+	--eui-primary-focus: rgba(47, 111, 191, 0.22);
+
+	/* Surfaces — page, section, and input stay close together */
+	--eui-page-bg: #f3f5f8;
+	--eui-surface: #ffffff;
+	--eui-surface-muted: #f7f8fa;
+	--eui-section-bg: #ffffff;
+
+	/* Text */
+	--eui-text: #111827;
+	--eui-text-muted: #4b5563;
+	--eui-text-placeholder: #94a3b8;
+	--eui-label-color: #374151;
+
+	/* Borders */
+	--eui-border: #e5e7eb;
+	--eui-border-strong: #d1d5db;
+
+	/* Semantic */
+	--eui-success: #15803d;
+	--eui-warning: #b45309;
+	--eui-danger: #b91c1c;
+	--eui-info: #1d4ed8;
+	--eui-neutral: #6b7280;
+
+	/* Radii — one consistent family */
+	--eui-radius-sm: 8px;
+	--eui-radius-md: 10px;
+	--eui-radius-lg: 12px;
+	--eui-control-radius: 8px;
+	--eui-section-radius: 10px;
+	--eui-dropdown-radius: 9px;
+
+	/* Form width */
+	--eui-form-max-width: 1100px;
+	--eui-form-medium-width: 1100px;
+	--eui-form-wide-width: 1280px;
+
+	/* Controls — productive density */
+	--eui-control-height: 40px;
+	--eui-control-height-comfortable: 40px;
+	--eui-control-height-compact: 34px;
+	--eui-checkbox-size: 16px;
+	--eui-checkbox-hit: 32px;
+	--eui-input-bg: #ffffff;
+	--eui-input-bg-hover: #ffffff;
+	--eui-input-bg-focus: #ffffff;
+	/* Soft read-only tint; controls.css prefers white/light surface for Data/Select RO */
+	--eui-input-bg-readonly: #fafbfc;
+	--eui-input-border: #d5dbe3;
+	--eui-input-border-hover: #b7c0cc;
+	--eui-input-border-focus: var(--eui-primary);
+	--eui-input-border-width: 1px;
+	--eui-input-border-width-focus: 1px;
+
+	/* Filled variant (opt-in) */
+	--eui-input-filled-bg: #f3f4f6;
+	--eui-input-filled-bg-hover: #eef0f3;
+	--eui-input-filled-border: transparent;
+
+	/* Typography — one productive scale */
+	--eui-label-size: 12px;
+	--eui-label-weight: 600;
+	--eui-body-size: 14px;
+	--eui-helper-size: 12px;
+	--eui-section-title-size: 15px;
+	--eui-section-subtitle-size: 12px;
+	--eui-tab-size: 13px;
+	--eui-toolbar-font-size: 13px;
+
+	/* Spacing (Comfortable defaults) */
+	--eui-space-1: 4px;
+	--eui-space-2: 8px;
+	--eui-space-3: 12px;
+	--eui-space-4: 16px;
+	--eui-space-5: 20px;
+	--eui-space-6: 24px;
+	--eui-space-8: 32px;
+	--eui-field-gap: 16px;
+	--eui-field-row-gap: 16px;
+	--eui-field-col-gap: 20px;
+	--eui-grid-gap-x: 20px;
+	--eui-grid-gap-y: 16px;
+	--eui-section-padding: 18px;
+	--eui-section-gap: 14px;
+	--eui-label-gap: 4px;
+	--eui-grid-row-height: 36px;
+	--eui-toolbar-button-size: 32px;
+	--eui-toolbar-icon-size: 16px;
+	--eui-save-height: 34px;
+
+	/* Motion — color/border only, never layout */
+	--eui-transition-fast: 150ms;
+	--eui-ease: cubic-bezier(0.2, 0, 0, 1);
+
+	/* Elevation — intentionally restrained */
+	--eui-shadow-soft: none;
+	--eui-shadow-dropdown: 0 8px 24px rgba(15, 23, 42, 0.12);
+	--eui-focus-ring: 0 0 0 3px var(--eui-primary-focus);
+}
+
+html[data-theme="dark"] {
+	--eui-page-bg: #12161c;
+	--eui-surface: #1b212b;
+	--eui-surface-muted: #171d26;
+	--eui-section-bg: #1c232e;
+
+	--eui-text: #e7edf5;
+	--eui-text-muted: #9aa6b6;
+	--eui-text-placeholder: #7d8b9c;
+	--eui-label-color: #d5deea;
+
+	--eui-border: #313a48;
+	--eui-border-strong: #425062;
+
+	/* Dark controls — never white inputs on a dark page */
+	--eui-input-bg: #262e3a;
+	--eui-input-bg-hover: #2b3442;
+	--eui-input-bg-focus: #262e3a;
+	--eui-input-bg-readonly: #202732;
+	--eui-input-border: #465266;
+	--eui-input-border-hover: #5c6b80;
+	--eui-input-border-focus: var(--eui-primary);
+	--eui-danger-soft: rgba(248, 113, 113, 0.18);
+
+	--eui-input-filled-bg: #171c23;
+	--eui-input-filled-bg-hover: #1a2028;
+
+	--eui-primary: var(--es-brand-primary, #5b93d6);
+	--eui-primary-hover: var(--es-brand-primary-hover, #7aa6de);
+	--eui-primary-soft: var(--es-brand-primary-soft, rgba(91, 147, 214, 0.18));
+	--eui-primary-focus: var(--es-brand-primary-focus, rgba(91, 147, 214, 0.28));
+	--eui-focus-ring: 0 0 0 3px rgba(91, 147, 214, 0.28);
+
+	--eui-shadow-soft: none;
+	--eui-shadow-dropdown: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* Prefer shell brand when available */
+:root {
+	--eui-primary: var(--es-brand-primary, #2f6fbf);
+	--eui-primary-hover: var(--es-brand-primary-hover, #275fa5);
+	--eui-primary-soft: var(--es-brand-primary-soft, rgba(47, 111, 191, 0.12));
+	--eui-primary-focus: var(--es-brand-primary-focus, rgba(47, 111, 191, 0.22));
+}
+
+/* Density */
+.eui-form-view[data-eui-density="Comfortable"] {
+	--eui-control-height: var(--eui-density-comfortable-control-height, var(--eui-control-height-comfortable));
+	--eui-field-gap: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-field-row-gap: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-grid-gap-y: var(--eui-density-comfortable-field-gap, 16px);
+	--eui-section-padding: var(--eui-density-comfortable-section-padding, 18px);
+	--eui-section-gap: var(--eui-density-comfortable-section-gap, 14px);
+	--eui-section-radius: var(--eui-density-comfortable-section-radius, 10px);
+	--eui-label-size: var(--eui-density-comfortable-label-size, 12px);
+	--eui-grid-row-height: var(--eui-density-comfortable-grid-row-height, 36px);
+}
+
+.eui-form-view[data-eui-density="Compact"] {
+	--eui-control-height: var(--eui-density-compact-control-height, var(--eui-control-height-compact));
+	--eui-field-gap: var(--eui-density-compact-field-gap, 12px);
+	--eui-field-row-gap: var(--eui-density-compact-field-gap, 12px);
+	--eui-grid-gap-y: var(--eui-density-compact-field-gap, 12px);
+	--eui-section-padding: var(--eui-density-compact-section-padding, 16px);
+	--eui-section-gap: var(--eui-density-compact-section-gap, 12px);
+	--eui-section-radius: var(--eui-density-compact-section-radius, 10px);
+	--eui-label-size: var(--eui-density-compact-label-size, 12px);
+	--eui-grid-row-height: var(--eui-density-compact-grid-row-height, 32px);
+	--eui-label-gap: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eui-form-view {
+		--eui-transition-fast: 0ms;
+	}
+}

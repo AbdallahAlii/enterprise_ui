@@ -1,0 +1,142 @@
+/**
+ * Responsive behavior — container/breakpoint based, not device-name only.
+ *
+ * Desktop: Auto Grid 2 cols (optional 3 when configured)
+ * Tablet (~768–1024): 2 cols when space allows
+ * Mobile (<768): 1 column, no horizontal overflow
+ */
+
+@media (max-width: 1199px) {
+	.eui-form-view[data-eui-width="Medium"] .form-layout .form-page,
+	.eui-form-view[data-eui-width="Wide"] .form-layout .form-page,
+	.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-body,
+	.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-body,
+	.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-head,
+	.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-head,
+	.eui-form-view[data-eui-width="Medium"] .form-tabs-list,
+	.eui-form-view[data-eui-width="Wide"] .form-tabs-list {
+		max-width: 100%;
+	}
+
+	.eui-form-view .form-section .section-body {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.eui-form-view {
+		--eui-section-padding: 16px;
+		--eui-section-gap: 14px;
+		--eui-field-col-gap: 14px;
+	}
+
+	.eui-form-view .layout-side-section {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-head .title-text {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 767px) {
+	.eui-form-view {
+		--eui-section-padding: 14px;
+		--eui-section-gap: 12px;
+		--eui-control-height: 40px;
+		--eui-field-gap: 12px;
+		--eui-field-row-gap: 12px;
+		--eui-field-col-gap: 12px;
+	}
+
+	.eui-form-view .form-section.card-section {
+		border-radius: var(--eui-radius-md);
+	}
+
+	.eui-form-view .layout-side-section {
+		border-left: none;
+		border-top: 1px solid var(--eui-border);
+	}
+
+	.eui-form-view .form-tabs-list {
+		margin-left: -4px;
+		margin-right: -4px;
+		padding-left: 4px;
+		padding-right: 4px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-actions .btn-primary,
+	.eui-form-view[data-eui-header="1"] .page-actions .primary-action {
+		height: 32px;
+		min-height: 32px;
+		max-height: 32px;
+		padding: 0 10px;
+	}
+
+	.eui-form-view[data-eui-header="1"] .page-head .page-head-content {
+		height: 48px;
+	}
+
+	/* Phone widths: one column even if a container query mis-measures */
+	.eui-form-view .form-section .form-column[data-eui-grid] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+	.eui-form-view .form-section .form-column[data-eui-grid="3"] > form {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="1"],
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="2"],
+	.eui-form-view .form-column[data-eui-grid] > form > .frappe-control[data-eui-span="full"] {
+		grid-column: 1 / -1;
+	}
+
+	/* Native multi-column sections also stack */
+	.eui-form-view .form-section.eui-native-columns > .section-body > .form-column {
+		flex: 0 0 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.eui-form-view .frappe-control[data-fieldtype="Text Editor"],
+	.eui-form-view .frappe-control[data-fieldtype="Table"],
+	.eui-form-view .frappe-control[data-fieldtype="Attach"],
+	.eui-form-view .frappe-control[data-fieldtype="Attach Image"],
+	.eui-form-view .frappe-control[data-fieldtype="HTML"],
+	.eui-form-view .frappe-control[data-fieldtype="Long Text"],
+	.eui-form-view .frappe-control[data-fieldtype="Code"] {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
+/* Never force horizontal scroll on normal fields */
+.eui-form-view .form-layout,
+.eui-form-view .form-page,
+.eui-form-view .section-body {
+	overflow-x: visible;
+}
+
+.eui-form-view .form-grid-container {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Desktop fallback when container queries are unavailable. */
+	@supports not (container-type: inline-size) {
+	@media (min-width: 992px) {
+		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
+		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form.eui-auto-grid,
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form,
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form.eui-auto-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.eui-form-view .form-section .form-column[data-eui-grid="3"] > form {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+}

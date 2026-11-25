@@ -1,0 +1,146 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:document_type",
+ "creation": "2026-11-22 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "document_type",
+  "enabled",
+  "use_native_form_appearance",
+  "presentation_section",
+  "density",
+  "content_width",
+  "column_break_presentation",
+  "section_style",
+  "grid_mode",
+  "default_field_span",
+  "rich_sections_section",
+  "sections",
+  "field_spans_section",
+  "field_spans"
+ ],
+ "fields": [
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Document Type",
+   "options": "DocType",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "default": "0",
+   "description": "Keep this DocType close to native Frappe Form styling even when Enterprise Forms are enabled globally.",
+   "fieldname": "use_native_form_appearance",
+   "fieldtype": "Check",
+   "label": "Use Native Form Appearance"
+  },
+  {
+   "fieldname": "presentation_section",
+   "fieldtype": "Section Break",
+   "label": "Presentation"
+  },
+  {
+   "default": "Inherit",
+   "fieldname": "density",
+   "fieldtype": "Select",
+   "label": "Density",
+   "options": "Inherit\nComfortable\nCompact"
+  },
+  {
+   "default": "Inherit",
+   "fieldname": "content_width",
+   "fieldtype": "Select",
+   "label": "Content Width",
+   "options": "Inherit\nMedium\nWide\nFull"
+  },
+  {
+   "fieldname": "column_break_presentation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Inherit",
+   "fieldname": "section_style",
+   "fieldtype": "Select",
+   "label": "Section Style",
+   "options": "Inherit\nStandard\nRich"
+  },
+  {
+   "default": "Inherit",
+   "description": "Auto = responsive 2-column when safe. Native = keep Frappe Column Breaks. Explicit 1/2/3 force a grid.",
+   "fieldname": "grid_mode",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Grid Mode",
+   "options": "Inherit\nAuto\nNative\n1 Column\n2 Columns\n3 Columns"
+  },
+  {
+   "default": "Auto",
+   "description": "Automatic half vs full width from fieldtype. Use Field Spans table only for exceptions.",
+   "fieldname": "default_field_span",
+   "fieldtype": "Select",
+   "label": "Default Field Span",
+   "options": "Auto"
+  },
+  {
+   "fieldname": "rich_sections_section",
+   "fieldtype": "Section Break",
+   "label": "Rich Section Metadata"
+  },
+  {
+   "description": "Optional. When empty, native Section Break labels are used. Columns override applies per section.",
+   "fieldname": "sections",
+   "fieldtype": "Table",
+   "label": "Sections",
+   "options": "Enterprise Form Section"
+  },
+  {
+   "fieldname": "field_spans_section",
+   "fieldtype": "Section Break",
+   "label": "Field Span Overrides"
+  },
+  {
+   "description": "Optional exceptions only. Leave empty for automatic sizing.",
+   "fieldname": "field_spans",
+   "fieldtype": "Table",
+   "label": "Field Spans",
+   "options": "Enterprise Form Field Span"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise UI",
+ "name": "Enterprise Form Configuration",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

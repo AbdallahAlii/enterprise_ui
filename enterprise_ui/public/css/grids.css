@@ -1,0 +1,109 @@
+/**
+ * Native Frappe Grid restyling — keep Grid engine intact.
+ * Compact professional table; never turn rows into cards.
+ */
+
+.eui-form-view[data-eui-grids="1"] .form-grid {
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+	overflow: hidden;
+	background: var(--eui-surface);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-heading-row {
+	background: var(--eui-surface-muted);
+	border-bottom: 1px solid var(--eui-border);
+	min-height: var(--eui-grid-row-height);
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--eui-text-muted);
+	letter-spacing: 0.01em;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row {
+	min-height: var(--eui-grid-row-height);
+	border-bottom: 1px solid var(--eui-border);
+	transition: background-color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row:last-child {
+	border-bottom: none;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row:hover {
+	background: var(--eui-primary-soft);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row.grid-row-open,
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-row.grid-row-current-row {
+	background: var(--eui-surface);
+	box-shadow: inset 2px 0 0 var(--eui-primary);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-static-col,
+.eui-form-view[data-eui-grids="1"] .form-grid .row-check,
+.eui-form-view[data-eui-grids="1"] .form-grid .row-index {
+	border-right: 1px solid var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-row .col:last-child {
+	text-align: inherit;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid .grid-footer,
+.eui-form-view[data-eui-grids="1"] .form-grid-buttons {
+	padding: 8px 12px;
+	background: var(--eui-surface);
+	border-top: 1px solid var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-buttons .btn,
+.eui-form-view[data-eui-grids="1"] .grid-footer .btn {
+	border-radius: var(--eui-control-radius);
+	font-weight: 600;
+	min-height: 30px;
+	font-size: 12px;
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-add-row,
+.eui-form-view[data-eui-grids="1"] .grid-buttons .grid-add-row {
+	border: 1px dashed var(--eui-input-border);
+	background: var(--eui-surface-muted);
+	color: var(--eui-text);
+}
+
+.eui-form-view[data-eui-grids="1"] .form-in-grid,
+.eui-form-view[data-eui-grids="1"] .grid-form-heading,
+.eui-form-view[data-eui-grids="1"] .form-grid .form-in-grid {
+	background: var(--eui-surface-muted);
+	border-color: var(--eui-border);
+}
+
+.eui-form-view[data-eui-grids="1"] .grid-row-open .form-section {
+	margin-bottom: 10px;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Currency"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Float"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Int"],
+.eui-form-view[data-eui-grids="1"] .form-grid [data-fieldtype="Percent"] {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Child-table Select: same single chevron as form Select */
+.eui-form-view[data-eui-grids="1"] .form-grid select,
+.eui-form-view[data-eui-grids="1"] .grid-row-open select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding-right: 28px !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 14px 14px;
+}
+
+.eui-form-view[data-eui-grids="1"] .form-grid select::-ms-expand {
+	display: none;
+}

@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "enable_enterprise_forms",
+  "defaults_section",
+  "default_form_density",
+  "default_content_width",
+  "column_break_defaults",
+  "default_section_style",
+  "default_grid_mode",
+  "features_section",
+  "enable_form_header_styling",
+  "enable_child_table_styling",
+  "column_break_features",
+  "enable_timeline_styling",
+  "enable_profile_pages"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "description": "Master switch for the Enterprise UI app contribution on Desk.",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "default": "1",
+   "description": "When disabled, standard Frappe Form View renders with native appearance (kill switch).",
+   "fieldname": "enable_enterprise_forms",
+   "fieldtype": "Check",
+   "label": "Enable Enterprise Forms"
+  },
+  {
+   "fieldname": "defaults_section",
+   "fieldtype": "Section Break",
+   "label": "Form Defaults"
+  },
+  {
+   "default": "Comfortable",
+   "fieldname": "default_form_density",
+   "fieldtype": "Select",
+   "label": "Default Form Density",
+   "options": "Comfortable\nCompact",
+   "reqd": 1
+  },
+  {
+   "default": "Wide",
+   "fieldname": "default_content_width",
+   "fieldtype": "Select",
+   "label": "Default Content Width",
+   "options": "Medium\nWide\nFull",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_defaults",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Standard",
+   "fieldname": "default_section_style",
+   "fieldtype": "Select",
+   "label": "Default Section Style",
+   "options": "Standard\nRich",
+   "reqd": 1
+  },
+  {
+   "default": "Auto",
+   "description": "Auto applies a responsive 2-column grid where Frappe Column Breaks are not meaningful. Native keeps Frappe layouts.",
+   "fieldname": "default_grid_mode",
+   "fieldtype": "Select",
+   "label": "Default Grid Mode",
+   "options": "Auto\nNative\n1 Column\n2 Columns\n3 Columns",
+   "reqd": 1
+  },
+  {
+   "fieldname": "features_section",
+   "fieldtype": "Section Break",
+   "label": "Feature Toggles"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_form_header_styling",
+   "fieldtype": "Check",
+   "label": "Enable Form Header Styling"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_child_table_styling",
+   "fieldtype": "Check",
+   "label": "Enable Child Table Styling"
+  },
+  {
+   "fieldname": "column_break_features",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "enable_timeline_styling",
+   "fieldtype": "Check",
+   "label": "Enable Timeline Styling"
+  },
+  {
+   "default": "0",
+   "description": "Reserved for future profile/detail pages. Does not migrate existing profiles.",
+   "fieldname": "enable_profile_pages",
+   "fieldtype": "Check",
+   "label": "Enable Profile Pages"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-23 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise UI",
+ "name": "Enterprise UI Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,223 @@
+/**
+ * Global Enterprise Form Theme — page chrome, layout width, header.
+ * ALL selectors are scoped under .eui-form-view to avoid Desk-wide leakage.
+ * Never apply to Quick Entry dialogs, Web Forms, Print, List View.
+ */
+
+.eui-form-view.page-container,
+.page-container.eui-form-view {
+	background: var(--eui-page-bg);
+}
+
+/* Page → sections → fields (no giant wrapping card)
+ * Frappe applies .frappe-card + form-page card-bg — neutralize both. */
+.eui-form-view .layout-main-section,
+.eui-form-view .layout-main-section.frappe-card,
+.eui-form-view .layout-main-section-wrapper,
+.eui-form-view .form-layout,
+.eui-form-view .std-form-layout,
+.eui-form-view .form-page,
+.eui-form-view .std-form-layout > .form-layout > .form-page {
+	background: transparent;
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+}
+
+/* Content width — constrain the whole form column, not only section pieces */
+.eui-form-view[data-eui-width="Medium"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Medium"] .form-tabs-list,
+.eui-form-view[data-eui-width="Medium"] .form-message,
+.eui-form-view[data-eui-width="Medium"] .form-dashboard,
+.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Medium"] .std-form-layout .section-body {
+	max-width: var(--eui-form-medium-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.eui-form-view[data-eui-width="Wide"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Wide"] .form-tabs-list,
+.eui-form-view[data-eui-width="Wide"] .form-message,
+.eui-form-view[data-eui-width="Wide"] .form-dashboard,
+.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Wide"] .std-form-layout .section-body {
+	max-width: var(--eui-form-wide-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.eui-form-view[data-eui-width="Full"] .form-layout .form-page,
+.eui-form-view[data-eui-width="Full"] .std-form-layout .section-head,
+.eui-form-view[data-eui-width="Full"] .std-form-layout .section-body,
+.eui-form-view[data-eui-width="Full"] .form-tabs-list {
+	max-width: none;
+}
+
+/* Compact persistent toolbar — do not let controls enlarge the header */
+.eui-form-view[data-eui-header="1"] .page-head {
+	background: var(--eui-surface);
+	border-bottom: 1px solid var(--eui-border);
+	box-shadow: none;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-head-content {
+	height: 48px;
+	min-height: 44px;
+	max-height: 48px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	align-items: center;
+	gap: 8px;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-title {
+	min-width: 0;
+	flex: 1 1 auto;
+	overflow: hidden;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-actions,
+.eui-form-view[data-eui-header="1"] .page-head .standard-actions {
+	flex: 0 0 auto;
+	align-items: center;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .page-title,
+.eui-form-view[data-eui-header="1"] .page-head .title-area {
+	min-height: 0;
+}
+
+.eui-form-view[data-eui-header="1"] .page-head .title-text {
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--eui-text);
+	font-size: 16px;
+	line-height: 1.2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100%;
+}
+
+/* Compact semantic status badges — not giant pills */
+.eui-form-view[data-eui-header="1"] .page-head .indicator-pill,
+.eui-form-view[data-eui-header="1"] .page-head .indicator-pill-right,
+.eui-form-view[data-eui-header="1"] .page-head .indicator {
+	border-radius: 6px;
+	font-weight: 600;
+	font-size: 11px;
+	padding: 2px 8px;
+	min-width: 0;
+	line-height: 1.4;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn {
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: var(--eui-toolbar-font-size);
+	line-height: 1;
+}
+
+/* Back / forward / overflow — compact icon buttons, not square cards */
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn,
+.eui-form-view[data-eui-header="1"] .page-icon-group .btn,
+.eui-form-view[data-eui-header="1"] .menu-btn-group > .btn {
+	width: var(--eui-toolbar-button-size);
+	height: var(--eui-toolbar-button-size);
+	min-width: var(--eui-toolbar-button-size);
+	min-height: var(--eui-toolbar-button-size);
+	max-width: var(--eui-toolbar-button-size);
+	max-height: var(--eui-toolbar-button-size);
+	padding: 0;
+	margin-left: 6px;
+	border-radius: 7px;
+	border: 1px solid var(--eui-border);
+	background: var(--eui-surface);
+	color: var(--eui-text);
+	box-shadow: none;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn .icon,
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn svg,
+.eui-form-view[data-eui-header="1"] .menu-btn-group .icon,
+.eui-form-view[data-eui-header="1"] .page-icon-group .icon {
+	width: var(--eui-toolbar-icon-size);
+	height: var(--eui-toolbar-icon-size);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn.icon-btn:hover,
+.eui-form-view[data-eui-header="1"] .menu-btn-group > .btn:hover {
+	background: var(--eui-surface-muted);
+	border-color: var(--eui-border-strong);
+}
+
+/* Save and other labeled toolbar actions */
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary,
+.eui-form-view[data-eui-header="1"] .page-actions .primary-action,
+.eui-form-view[data-eui-header="1"] .standard-actions .btn-primary {
+	height: var(--eui-save-height);
+	min-height: var(--eui-save-height);
+	max-height: var(--eui-save-height);
+	padding: 0 14px;
+	font-size: var(--eui-toolbar-font-size);
+	font-weight: 600;
+	border-radius: 8px;
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary {
+	background: var(--eui-primary);
+	border-color: var(--eui-primary);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary:hover,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-primary:focus {
+	background: var(--eui-primary-hover);
+	border-color: var(--eui-primary-hover);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-default,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-secondary {
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-primary);
+	color: var(--eui-primary);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn-default:hover,
+.eui-form-view[data-eui-header="1"] .page-actions .btn-secondary:hover {
+	background: var(--eui-primary-soft);
+	border-color: var(--eui-primary-hover);
+	color: var(--eui-primary-hover);
+}
+
+.eui-form-view[data-eui-header="1"] .page-actions .btn:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring);
+}
+
+/* Soft page padding — reduce chrome before first field */
+.eui-form-view .layout-main-section-wrapper {
+	padding-top: 6px;
+}
+
+.eui-form-view .form-message {
+	border-radius: var(--eui-radius-md);
+	margin-bottom: var(--eui-section-gap);
+}
+
+/* Submitted / cancelled readability */
+.eui-form-view .form-layout[data-state="Submitted"],
+.eui-form-view.eui-docstatus-1 .page-head {
+	border-top: 2px solid var(--eui-success);
+}
+
+.eui-form-view.eui-docstatus-2 .page-head {
+	border-top: 2px solid var(--eui-danger);
+}
+
+@media print {
+	.eui-form-view,
+	.eui-form-view * {
+		box-shadow: none !important;
+	}
+}

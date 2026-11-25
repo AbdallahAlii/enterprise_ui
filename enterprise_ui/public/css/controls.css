@@ -1,0 +1,546 @@
+/**
+ * Native Frappe control restyling — Desk Form View only (.eui-form-view).
+ * Top-aligned labels only (no floating / Google-style labels).
+ * Do not break Link autocomplete, date pickers, file upload, or ARIA.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Base field                                                          */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control {
+	margin-bottom: 0;
+	min-width: 0;
+}
+
+.eui-form-view .frappe-control .form-group {
+	margin-bottom: 0;
+}
+
+/* Top-aligned labels — always above the control */
+.eui-form-view .control-label,
+.eui-form-view .frappe-control .label-area,
+.eui-form-view .frappe-control label.control-label,
+.eui-form-view .frappe-control.eui-top-label .control-label {
+	display: block;
+	position: static;
+	transform: none;
+	font-size: var(--eui-label-size);
+	font-weight: var(--eui-label-weight);
+	letter-spacing: 0;
+	color: var(--eui-label-color);
+	margin: 0 0 var(--eui-label-gap);
+	line-height: 1.3;
+	max-width: 100%;
+	white-space: normal;
+	pointer-events: auto;
+	background: transparent;
+}
+
+/* Required: only the asterisk is semantic red */
+.eui-form-view .frappe-control[data-required="true"] .control-label::after,
+.eui-form-view .frappe-control .reqd::before,
+.eui-form-view .frappe-control .control-label .reqd,
+.eui-form-view .frappe-control .label-area .reqd {
+	color: var(--eui-danger);
+	font-weight: 700;
+}
+
+.eui-form-view .frappe-control[data-required="true"] .control-label {
+	color: var(--eui-label-color);
+}
+
+/* ------------------------------------------------------------------ */
+/* Outlined inputs — light surface, clear border                       */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .form-control:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]),
+.eui-form-view input.input-with-feedback:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]),
+.eui-form-view select.input-with-feedback,
+.eui-form-view textarea.input-with-feedback,
+.eui-form-view .awesomplete > input,
+.eui-form-view .frappe-control input[type="text"],
+.eui-form-view .frappe-control input[type="password"],
+.eui-form-view .frappe-control input[type="email"],
+.eui-form-view .frappe-control input[type="number"],
+.eui-form-view .frappe-control input[type="tel"],
+.eui-form-view .frappe-control select,
+.eui-form-view .frappe-control textarea:not([data-fieldtype="Code"]) {
+	min-height: var(--eui-control-height);
+	height: var(--eui-control-height);
+	border-radius: var(--eui-control-radius);
+	border: var(--eui-input-border-width) solid var(--eui-input-border);
+	background-color: var(--eui-input-bg);
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	box-shadow: none;
+	padding: 0 12px;
+	line-height: calc(var(--eui-control-height) - 2px);
+	transition:
+		border-color var(--eui-transition-fast) var(--eui-ease),
+		background-color var(--eui-transition-fast) var(--eui-ease),
+		box-shadow var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .form-control::placeholder,
+.eui-form-view input.input-with-feedback::placeholder,
+.eui-form-view textarea.input-with-feedback::placeholder {
+	color: var(--eui-text-placeholder);
+	opacity: 1;
+}
+
+.eui-form-view .frappe-control textarea,
+.eui-form-view textarea.input-with-feedback {
+	min-height: 88px;
+	height: auto;
+	padding: 8px 12px;
+	resize: vertical;
+	line-height: 1.45;
+}
+
+/* Hover */
+.eui-form-view .form-control:hover,
+.eui-form-view input.input-with-feedback:hover,
+.eui-form-view select.input-with-feedback:hover,
+.eui-form-view textarea.input-with-feedback:hover,
+.eui-form-view .awesomplete > input:hover {
+	border-color: var(--eui-input-border-hover);
+	background-color: var(--eui-input-bg-hover);
+}
+
+/* Focus */
+.eui-form-view .form-control:focus,
+.eui-form-view input.input-with-feedback:focus,
+.eui-form-view select.input-with-feedback:focus,
+.eui-form-view textarea.input-with-feedback:focus,
+.eui-form-view .awesomplete > input:focus,
+.eui-form-view .frappe-control:focus-within .form-control,
+.eui-form-view .frappe-control:focus-within input.input-with-feedback,
+.eui-form-view .frappe-control:focus-within select.input-with-feedback,
+.eui-form-view .frappe-control:focus-within textarea.input-with-feedback {
+	border-color: var(--eui-input-border-focus);
+	border-width: var(--eui-input-border-width);
+	background-color: var(--eui-input-bg-focus);
+	box-shadow: var(--eui-focus-ring);
+	outline: none;
+}
+
+/* Disabled */
+.eui-form-view .form-control:disabled,
+.eui-form-view input.input-with-feedback:disabled,
+.eui-form-view select.input-with-feedback:disabled,
+.eui-form-view textarea.input-with-feedback:disabled {
+	opacity: 0.65;
+	cursor: not-allowed;
+	background-color: var(--eui-input-bg-readonly);
+}
+
+/* Filled variant (opt-in) */
+.eui-form-view[data-eui-control-variant="Filled"] .form-control,
+.eui-form-view[data-eui-control-variant="Filled"] input.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] select.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] textarea.input-with-feedback,
+.eui-form-view[data-eui-control-variant="Filled"] .awesomplete > input,
+.eui-form-view .frappe-control.eui-field--filled .form-control,
+.eui-form-view .frappe-control.eui-field--filled input.input-with-feedback {
+	background-color: var(--eui-input-filled-bg);
+	border-color: var(--eui-input-filled-border);
+	border-bottom: 1.5px solid var(--eui-input-border);
+	border-radius: var(--eui-control-radius) var(--eui-control-radius) 4px 4px;
+}
+
+.eui-form-view[data-eui-control-variant="Filled"] .form-control:hover,
+.eui-form-view .frappe-control.eui-field--filled .form-control:hover {
+	background-color: var(--eui-input-filled-bg-hover);
+}
+
+/* Read-only — light surface + thin border (not heavy grey fill); still non-editable */
+.eui-form-view .frappe-control .control-value,
+.eui-form-view .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype] .control-input-wrapper .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Data"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Select"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Read Only"] .like-disabled-input,
+.eui-form-view .frappe-control[data-fieldtype="Link"] .like-disabled-input {
+	background: var(--eui-input-bg, #ffffff);
+	border: var(--eui-input-border-width) solid var(--eui-input-border, #d1d5db);
+	border-radius: var(--eui-control-radius);
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	min-height: var(--eui-control-height);
+	padding: 8px 12px;
+	opacity: 1;
+	box-shadow: none;
+	display: flex;
+	align-items: center;
+	cursor: default;
+	pointer-events: none;
+}
+
+[data-theme="dark"] .eui-form-view .like-disabled-input,
+[data-theme="dark"] .eui-form-view .frappe-control .control-value {
+	background: var(--eui-surface, #1a222d);
+	border-color: var(--eui-input-border, #3a4556);
+}
+
+/* Numeric alignment */
+.eui-form-view .frappe-control[data-fieldtype="Currency"] input,
+.eui-form-view .frappe-control[data-fieldtype="Float"] input,
+.eui-form-view .frappe-control[data-fieldtype="Int"] input,
+.eui-form-view .frappe-control[data-fieldtype="Percent"] input {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Select — one Enterprise chevron; hide native dual arrows (form + child grids) */
+.eui-form-view .frappe-control[data-fieldtype="Select"] select,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select.form-control,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select.input-with-feedback,
+.eui-form-view .form-grid select.input-with-feedback,
+.eui-form-view .form-grid select.form-control,
+.eui-form-view .grid-row select,
+.eui-form-view .grid-static-col select,
+.eui-form-view select.input-with-feedback:not([multiple]) {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding-right: 32px !important;
+	cursor: pointer;
+	background-color: var(--eui-input-bg);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 14px 14px;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Select"] select::-ms-expand,
+.eui-form-view .form-grid select::-ms-expand,
+.eui-form-view select.input-with-feedback::-ms-expand {
+	display: none;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Select"] select:disabled,
+.eui-form-view .form-grid select:disabled {
+	cursor: not-allowed;
+	opacity: 0.65;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Date"] .datepicker--pointer,
+.eui-form-view .frappe-control[data-fieldtype="Select"] select {
+	cursor: pointer;
+}
+
+/* Do not strip number spinners globally — only Select above uses appearance:none */
+
+/* ------------------------------------------------------------------ */
+/* Helper / error                                                      */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control .help-box,
+.eui-form-view .frappe-control .help,
+.eui-form-view .frappe-control .help-box.small {
+	color: var(--eui-text-muted);
+	font-size: var(--eui-helper-size);
+	margin-top: 4px;
+	margin-bottom: 0;
+	line-height: 1.45;
+}
+
+.eui-form-view .frappe-control.has-error .form-control,
+.eui-form-view .frappe-control.has-error input.input-with-feedback,
+.eui-form-view .frappe-control.has-error select.input-with-feedback,
+.eui-form-view .frappe-control.has-error textarea.input-with-feedback,
+.eui-form-view .frappe-control.has-error .awesomplete > input,
+.eui-form-view .frappe-control.eui-invalid .form-control,
+.eui-form-view .frappe-control.eui-invalid input.input-with-feedback,
+.eui-form-view .frappe-control.eui-invalid select.input-with-feedback,
+.eui-form-view .frappe-control.eui-invalid textarea.input-with-feedback {
+	border: var(--eui-input-border-width) solid var(--eui-danger);
+	box-shadow: 0 0 0 3px var(--eui-danger-soft, rgba(185, 28, 28, 0.12));
+	background-color: var(--eui-input-bg-focus);
+}
+
+/* Error: keep label neutral; only border + helper go red */
+.eui-form-view .frappe-control.has-error .control-label,
+.eui-form-view .frappe-control.eui-invalid .control-label {
+	color: var(--eui-label-color);
+}
+
+.eui-form-view .frappe-control.has-error .help-box,
+.eui-form-view .frappe-control.eui-invalid .help-box,
+.eui-form-view .frappe-control .eui-field-error {
+	color: var(--eui-danger);
+	font-size: var(--eui-helper-size);
+	margin-top: 4px;
+	display: flex;
+	align-items: flex-start;
+	gap: 5px;
+}
+
+.eui-form-view .frappe-control .eui-field-error::before {
+	content: "⚠";
+	flex: 0 0 auto;
+	font-size: 11px;
+	line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ */
+/* Checkbox — 16px box, ~32px hit row, not an input rectangle          */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view {
+	--checkbox-size: var(--eui-checkbox-size);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"],
+.eui-form-view .frappe-control.eui-field-check {
+	display: flex;
+	align-items: center;
+	align-self: center;
+	min-height: var(--eui-checkbox-hit);
+	height: auto;
+	padding: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .checkbox,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .form-group,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-input-wrapper,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .input-area,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .disp-area {
+	border: none !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	min-height: 0 !important;
+	height: auto !important;
+	width: auto !important;
+	max-width: none !important;
+	padding: 0 !important;
+	margin: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .checkbox,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .label-area {
+	display: flex;
+	align-items: center;
+	min-height: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] label,
+.eui-form-view .frappe-control[data-fieldtype="Check"] .label-area label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	min-height: var(--eui-checkbox-hit);
+	padding: 0;
+	margin: 0;
+	color: var(--eui-text);
+	font-size: var(--eui-body-size);
+	font-weight: 500;
+	line-height: 1.3;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] .control-label {
+	display: none;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"],
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"].input-with-feedback,
+.eui-form-view input[type="checkbox"].input-with-feedback {
+	appearance: none;
+	-webkit-appearance: none;
+	accent-color: var(--eui-primary);
+	width: var(--eui-checkbox-size) !important;
+	height: var(--eui-checkbox-size) !important;
+	min-width: var(--eui-checkbox-size) !important;
+	min-height: var(--eui-checkbox-size) !important;
+	max-width: var(--eui-checkbox-size) !important;
+	max-height: var(--eui-checkbox-size) !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	flex: 0 0 var(--eui-checkbox-size);
+	border-radius: 4px;
+	border: 1px solid var(--eui-input-border-hover) !important;
+	background-color: var(--eui-input-bg) !important;
+	background-image: none;
+	box-shadow: none !important;
+	cursor: pointer;
+	line-height: var(--eui-checkbox-size);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:checked,
+.eui-form-view input[type="checkbox"].input-with-feedback:checked {
+	background-color: var(--eui-primary) !important;
+	border-color: var(--eui-primary) !important;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4.00001L2.66667 5.80001L7 1.20001' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 10px 8px;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Check"] input[type="checkbox"]:focus-visible {
+	outline: none;
+	box-shadow: var(--eui-focus-ring) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Link / date dropdowns                                               */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .awesomplete > ul,
+.eui-form-view .frappe-control .link-btn,
+.eui-form-view .datepicker,
+.eui-form-view .datepicker--pointer,
+.eui-form-view .datepicker-dropdown {
+	z-index: 1060;
+}
+
+.eui-form-view .awesomplete {
+	width: 100%;
+}
+
+.eui-form-view .awesomplete > ul {
+	min-width: 100%;
+	width: max(100%, 220px);
+	max-width: min(480px, 90vw);
+	margin-top: 4px;
+	padding: 6px;
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-dropdown-radius);
+	background: var(--eui-surface);
+	box-shadow: var(--eui-shadow-dropdown);
+	overflow: hidden;
+}
+
+.eui-form-view .awesomplete > ul > li {
+	padding: 8px 10px;
+	border-radius: 6px;
+	margin: 0;
+	line-height: 1.35;
+	color: var(--eui-text);
+}
+
+.eui-form-view .awesomplete > ul > li[aria-selected="true"],
+.eui-form-view .awesomplete > ul > li:hover {
+	background: var(--eui-primary-soft);
+	color: var(--eui-text);
+}
+
+.eui-form-view .awesomplete > ul > li p,
+.eui-form-view .awesomplete > ul > li .small,
+.eui-form-view .awesomplete > ul > li .text-muted {
+	color: var(--eui-text-muted);
+	font-size: 11.5px;
+	margin: 2px 0 0;
+}
+
+.eui-form-view .form-section,
+.eui-form-view .section-body,
+.eui-form-view .form-column,
+.eui-form-view .control-input-wrapper,
+.eui-form-view .frappe-control,
+.eui-form-view .form-page {
+	overflow: visible;
+}
+
+/* ------------------------------------------------------------------ */
+/* Attach / Attach Image — compact dropzone                            */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .control-input {
+	min-height: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .attached-file,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .attached-file,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .img-container,
+.eui-form-view .frappe-control.eui-dropzone .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .control-input {
+	border-radius: var(--eui-control-radius);
+	border: 1.5px dashed var(--eui-input-border-hover);
+	background: var(--eui-surface-muted);
+	padding: 12px 14px;
+	min-height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	transition:
+		border-color var(--eui-transition-fast) var(--eui-ease),
+		background-color var(--eui-transition-fast) var(--eui-ease);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach"] .attached-file:hover,
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] .attached-file:hover,
+.eui-form-view .frappe-control.eui-dropzone .control-input:hover {
+	border-color: var(--eui-input-border-hover);
+	background: var(--eui-input-bg-hover);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Attach Image"] img {
+	border-radius: var(--eui-radius-sm);
+	max-height: 120px;
+}
+
+.eui-form-view .frappe-control .eui-dropzone-hint {
+	text-align: center;
+	color: var(--eui-text-muted);
+	font-size: var(--eui-helper-size);
+	line-height: 1.4;
+	pointer-events: none;
+}
+
+.eui-form-view .frappe-control .eui-dropzone-hint strong {
+	display: block;
+	color: var(--eui-text);
+	font-weight: 600;
+	font-size: var(--eui-label-size);
+	margin-bottom: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Text Editor                                                         */
+/* ------------------------------------------------------------------ */
+
+.eui-form-view .ql-toolbar.ql-snow,
+.eui-form-view .ql-container.ql-snow {
+	border-color: var(--eui-input-border);
+	border-radius: var(--eui-control-radius);
+	background: var(--eui-input-bg);
+}
+
+.eui-form-view .ql-toolbar.ql-snow {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.eui-form-view .ql-container.ql-snow {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Color"] .control-input,
+.eui-form-view .frappe-control[data-fieldtype="Duration"] .control-input {
+	min-height: var(--eui-control-height);
+}
+
+.eui-form-view .frappe-control[data-fieldtype="Heading"] .control-label,
+.eui-form-view .frappe-control[data-fieldtype="Heading"] .label-area {
+	font-size: 14px;
+	font-weight: 650;
+	color: var(--eui-text);
+	margin-bottom: 0;
+}
+
+html[data-theme="dark"] .eui-form-view .ql-toolbar.ql-snow,
+html[data-theme="dark"] .eui-form-view .ql-container.ql-snow,
+html[data-theme="dark"] .eui-form-view .ql-editor,
+html[data-theme="dark"] .eui-form-view .ace_editor {
+	background: var(--eui-input-bg);
+	color: var(--eui-text);
+	border-color: var(--eui-input-border);
+}

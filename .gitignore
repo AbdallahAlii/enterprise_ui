@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+.DS_Store
+node_modules/
+*.swp
+.mypy_cache/

@@ -1,0 +1,40 @@
+/**
+ * Native form sidebar restyle — preserve Assigned To, Attachments, Tags, Share.
+ */
+
+.eui-form-view .form-sidebar,
+.eui-form-view .layout-side-section {
+	background: var(--eui-surface);
+	border-left: 1px solid var(--eui-border);
+}
+
+.eui-form-view .form-sidebar .sidebar-menu,
+.eui-form-view .form-sidebar .form-tags,
+.eui-form-view .form-sidebar .form-shared,
+.eui-form-view .form-sidebar .form-follow,
+.eui-form-view .form-sidebar .form-stats {
+	border-color: var(--eui-border);
+}
+
+.eui-form-view .form-sidebar .sidebar-label,
+.eui-form-view .form-sidebar .form-sidebar-stats li {
+	color: var(--eui-text-muted);
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.02em;
+}
+
+.eui-form-view .form-sidebar a,
+.eui-form-view .form-sidebar .sidebar-menu li {
+	color: var(--eui-text);
+}
+
+.eui-form-view .form-sidebar .btn,
+.eui-form-view .form-sidebar .attachments-actions .btn {
+	border-radius: var(--eui-control-radius);
+}
+
+.eui-form-view .form-sidebar .form-attachments,
+.eui-form-view .form-sidebar .attachment-row {
+	border-color: var(--eui-border);
+}

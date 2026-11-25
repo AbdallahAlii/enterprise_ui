@@ -1,0 +1,29 @@
+/**
+ * Native timeline / comments — visual cleanup only.
+ */
+
+.eui-form-view[data-eui-timeline="1"] .timeline-item,
+.eui-form-view[data-eui-timeline="1"] .new-timeline .timeline-item {
+	border-color: var(--eui-border);
+}
+
+.eui-form-view[data-eui-timeline="1"] .comment-box,
+.eui-form-view[data-eui-timeline="1"] .timeline-content,
+.eui-form-view[data-eui-timeline="1"] .new-timeline .timeline-content {
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+}
+
+.eui-form-view[data-eui-timeline="1"] .comment-input-wrapper,
+.eui-form-view[data-eui-timeline="1"] .comment-box .comment-input-container {
+	border-radius: var(--eui-radius-md);
+	border-color: var(--eui-input-border);
+	background: var(--eui-input-bg);
+}
+
+.eui-form-view[data-eui-timeline="1"] .timeline-dot,
+.eui-form-view[data-eui-timeline="1"] .timeline-badge {
+	background: var(--eui-primary-soft);
+	color: var(--eui-primary);
+}

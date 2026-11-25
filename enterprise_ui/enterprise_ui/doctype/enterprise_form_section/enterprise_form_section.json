@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_fieldname",
+  "icon",
+  "subtitle",
+  "style",
+  "columns"
+ ],
+ "fields": [
+  {
+   "description": "Section Break fieldname from the DocType (e.g. personal_details).",
+   "fieldname": "section_fieldname",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Section Fieldname",
+   "reqd": 1
+  },
+  {
+   "description": "Optional Lucide/Feather-style icon name. Not required for Standard sections.",
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Icon"
+  },
+  {
+   "fieldname": "subtitle",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Subtitle"
+  },
+  {
+   "default": "Rich",
+   "fieldname": "style",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Style",
+   "options": "Inherit\nStandard\nRich"
+  },
+  {
+   "default": "Inherit",
+   "description": "Override Auto Grid for this section only.",
+   "fieldname": "columns",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Columns",
+   "options": "Inherit\nNative\n1 Column\n2 Columns\n3 Columns\nFull Width"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-23 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise UI",
+ "name": "Enterprise Form Section",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
