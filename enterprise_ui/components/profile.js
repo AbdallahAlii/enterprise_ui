@@ -1,24 +1,26 @@
 /**
- * Future profile/detail page building blocks (presentation only).
+ * Detail / profile presentation building blocks.
  *
- * Prepared stubs — not wired into Desk yet. Profile pages should consume
- * enterprise_core (or other app) secured APIs for data/actions.
+ * Runtime implementation lives in public/js/detail.js (bundled via
+ * enterprise_ui.bundle.js). This module documents the surface for developers.
  *
- * Planned reusable pieces:
- *   - profile header
- *   - identity summary
- *   - status badge
- *   - metric strip
- *   - detail section
- *   - related-record table
- *   - action toolbar
- *   - empty state
+ * Reusable pieces:
+ *   - Detail Page Shell
+ *   - Detail Header
+ *   - Status Badge
+ *   - Summary Grid / Metric Strip
+ *   - Section
+ *   - Key/Value Details
+ *   - Long Content Section
+ *   - Attachment Section
+ *   - Progress Indicator
+ *   - Action Toolbar
+ *   - Empty / Error / Skeleton states
  *
- * Do NOT migrate existing Employee Profile here in phase 1.
+ * Do NOT put DocType business rules here.
  */
 frappe.provide("enterprise_ui.components.profile");
 
-enterprise_ui.components.profile = {
-	version: 1,
-	ready: false,
-};
+if (frappe.boot && enterprise_ui && enterprise_ui.detail) {
+	enterprise_ui.components.profile = enterprise_ui.detail;
+}
