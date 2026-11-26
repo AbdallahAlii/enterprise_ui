@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import frappe
 
-SETUP_VERSION = "2026.11.23.03"
+SETUP_VERSION = "2026.11.26.01"
 SETUP_VERSION_KEY = "enterprise_ui_setup_version"
 
 # Optional starter Form Configurations (created only when missing).
