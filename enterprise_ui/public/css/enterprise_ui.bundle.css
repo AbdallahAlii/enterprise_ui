@@ -1,8 +1,4 @@
-/**
- * enterprise_ui.bundle.css — concatenated for Frappe esbuild fingerprinting.
- * Generated/maintained bundle of Enterprise UI component styles.
- * Keep source component CSS in sync when editing the bundle directly.
- */
+/** enterprise_ui.bundle.css — concatenated for Frappe esbuild fingerprinting. */
 
 /* ===== tokens.css ===== */
 /**
@@ -15,7 +11,7 @@
  * Spacing scale: 4 / 8 / 12 / 16 / 20 / 24 / 32
  */
 
- :root {
+:root {
 	/* Brand (shell may override) */
 	--eui-primary: #2f6fbf;
 	--eui-primary-hover: #275fa5;
@@ -23,9 +19,9 @@
 	--eui-primary-focus: rgba(47, 111, 191, 0.22);
 
 	/* Surfaces — page, section, and input stay close together */
-	--eui-page-bg: #f5f7fa;
+	--eui-page-bg: #f3f5f8;
 	--eui-surface: #ffffff;
-	--eui-surface-muted: #f8fafc;
+	--eui-surface-muted: #f7f8fa;
 	--eui-section-bg: #ffffff;
 
 	/* Text */
@@ -35,8 +31,8 @@
 	--eui-label-color: #374151;
 
 	/* Borders */
-	--eui-border: #e2e7ee;
-	--eui-border-strong: #cbd3df;
+	--eui-border: #e5e7eb;
+	--eui-border-strong: #d1d5db;
 
 	/* Semantic */
 	--eui-success: #15803d;
@@ -54,9 +50,9 @@
 	--eui-dropdown-radius: 9px;
 
 	/* Form width */
-	--eui-form-max-width: 1120px;
-	--eui-form-medium-width: 1120px;
-	--eui-form-wide-width: 1360px;
+	--eui-form-max-width: 1100px;
+	--eui-form-medium-width: 1100px;
+	--eui-form-wide-width: 1280px;
 
 	/* Controls — productive density */
 	--eui-control-height: 40px;
@@ -69,8 +65,8 @@
 	--eui-input-bg-focus: #ffffff;
 	/* Soft read-only tint; controls.css prefers white/light surface for Data/Select RO */
 	--eui-input-bg-readonly: #fafbfc;
-	--eui-input-border: #cfd7e2;
-	--eui-input-border-hover: #aeb9c8;
+	--eui-input-border: #d5dbe3;
+	--eui-input-border-hover: #b7c0cc;
 	--eui-input-border-focus: var(--eui-primary);
 	--eui-input-border-width: 1px;
 	--eui-input-border-width-focus: 1px;
@@ -104,7 +100,7 @@
 	--eui-grid-gap-x: 20px;
 	--eui-grid-gap-y: 16px;
 	--eui-section-padding: 18px;
-	--eui-section-gap: 16px;
+	--eui-section-gap: 14px;
 	--eui-label-gap: 4px;
 	--eui-grid-row-height: 36px;
 	--eui-toolbar-button-size: 32px;
@@ -112,14 +108,14 @@
 	--eui-save-height: 34px;
 
 	/* Page shell spacing */
-	--eui-page-top-gap: 20px;
-	--eui-page-gutter-x: 24px;
-	--eui-page-gutter-y: 20px;
+	--eui-page-top-gap: 16px;
+	--eui-page-gutter-x: 22px;
+	--eui-page-gutter-y: 16px;
 	--eui-page-bottom-gap: 24px;
-	--eui-form-top-gap: 16px;
-	--eui-page-header-gap: 16px;
+	--eui-form-top-gap: 14px;
+	--eui-page-header-gap: 14px;
 	--eui-table-row-height: 42px;
-	--eui-table-header-height: 40px;
+	--eui-table-header-height: 38px;
 
 	/* Motion — color/border only, never layout */
 	--eui-transition-fast: 150ms;
@@ -170,8 +166,8 @@ html[data-theme="dark"] {
 
 @media (max-width: 991.98px) {
 	:root {
-		--eui-page-gutter-x: 16px;
-		--eui-page-gutter-y: 16px;
+		--eui-page-gutter-x: 18px;
+		--eui-page-gutter-y: 14px;
 		--eui-page-bottom-gap: 20px;
 	}
 }
@@ -219,11 +215,11 @@ html[data-theme="dark"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.eui-form-view,
-	.eui-page {
+	.eui-form-view {
 		--eui-transition-fast: 0ms;
 	}
 }
+
 /* ===== forms.css ===== */
 /**
  * Global Enterprise Form Theme — page chrome, layout width, header.
@@ -457,6 +453,7 @@ html[data-theme="dark"] {
 		box-shadow: none !important;
 	}
 }
+
 /* ===== sections.css ===== */
 /**
  * Section Break presentation + Enterprise Auto Grid.
@@ -950,12 +947,6 @@ html[data-theme="dark"] {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-html[data-theme="dark"] .eui-form-view .frappe-control[data-fieldtype="Select"] select:not(:disabled),
-html[data-theme="dark"] .eui-form-view .form-grid select:not(:disabled),
-html[data-theme="dark"] .eui-form-view .grid-row select:not(:disabled) {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%23cbd5e1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-}
-
 .eui-form-view .frappe-control[data-fieldtype="Date"] .datepicker--pointer,
 .eui-form-view .frappe-control[data-fieldtype="Select"] select {
 	cursor: pointer;
@@ -1348,8 +1339,8 @@ html[data-theme="dark"] .eui-form-view .ace_editor {
 	background: var(--eui-surface-muted);
 	border-bottom: 1px solid var(--eui-border);
 	min-height: var(--eui-grid-row-height);
-	font-size: 12px;
-	font-weight: 600;
+	font-size: 11px;
+	font-weight: 650;
 	color: var(--eui-text-muted);
 	letter-spacing: 0.01em;
 }
@@ -1464,9 +1455,9 @@ html[data-theme="dark"] .eui-form-view .ace_editor {
 .eui-form-view .form-sidebar .sidebar-label,
 .eui-form-view .form-sidebar .form-sidebar-stats li {
 	color: var(--eui-text-muted);
-	font-size: 12px;
-	font-weight: 600;
-	letter-spacing: 0.01em;
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.02em;
 }
 
 .eui-form-view .form-sidebar a,
@@ -1482,15 +1473,6 @@ html[data-theme="dark"] .eui-form-view .ace_editor {
 .eui-form-view .form-sidebar .form-attachments,
 .eui-form-view .form-sidebar .attachment-row {
 	border-color: var(--eui-border);
-}
-
-
-/* Shared keyboard focus: visible without changing native behavior. */
-.eui-form-view .form-sidebar a:focus-visible,
-.eui-form-view .form-sidebar .btn:focus-visible,
-.eui-form-view[data-eui-grids="1"] .form-grid .btn:focus-visible {
-	outline: none;
-	box-shadow: var(--eui-focus-ring);
 }
 
 /* ===== timeline.css ===== */
@@ -3109,7 +3091,7 @@ html[data-theme="dark"] .eui-form-view .ace_editor {
 }
 
 /* Desktop fallback when container queries are unavailable. */
-@supports not (container-type: inline-size) {
+	@supports not (container-type: inline-size) {
 	@media (min-width: 992px) {
 		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form,
 		.eui-form-view .form-section .form-column[data-eui-grid="2"] > form.eui-auto-grid,
