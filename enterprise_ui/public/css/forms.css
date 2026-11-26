@@ -195,9 +195,18 @@
 	box-shadow: var(--eui-focus-ring);
 }
 
-/* Soft page padding — reduce chrome before first field */
+/* Soft page padding — separate form from breadcrumb / toolbar */
 .eui-form-view .layout-main-section-wrapper {
-	padding-top: 6px;
+	padding-top: var(--eui-form-top-gap, 14px);
+}
+
+.eui-form-view .form-layout,
+.eui-form-view .std-form-layout {
+	padding-top: 0;
+}
+
+.eui-form-view .form-tabs-list {
+	margin-top: 0;
 }
 
 .eui-form-view .form-message {

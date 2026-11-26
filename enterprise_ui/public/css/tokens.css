@@ -104,6 +104,16 @@
 	--eui-toolbar-icon-size: 16px;
 	--eui-save-height: 34px;
 
+	/* Page shell spacing */
+	--eui-page-top-gap: 16px;
+	--eui-page-gutter-x: 22px;
+	--eui-page-gutter-y: 16px;
+	--eui-page-bottom-gap: 24px;
+	--eui-form-top-gap: 14px;
+	--eui-page-header-gap: 14px;
+	--eui-table-row-height: 42px;
+	--eui-table-header-height: 38px;
+
 	/* Motion — color/border only, never layout */
 	--eui-transition-fast: 150ms;
 	--eui-ease: cubic-bezier(0.2, 0, 0, 1);
@@ -149,6 +159,22 @@ html[data-theme="dark"] {
 
 	--eui-shadow-soft: none;
 	--eui-shadow-dropdown: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 991.98px) {
+	:root {
+		--eui-page-gutter-x: 18px;
+		--eui-page-gutter-y: 14px;
+		--eui-page-bottom-gap: 20px;
+	}
+}
+
+@media (max-width: 575.98px) {
+	:root {
+		--eui-page-gutter-x: 12px;
+		--eui-page-gutter-y: 12px;
+		--eui-page-bottom-gap: 16px;
+	}
 }
 
 /* Prefer shell brand when available */

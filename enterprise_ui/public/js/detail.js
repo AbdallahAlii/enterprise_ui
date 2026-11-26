@@ -48,11 +48,43 @@ frappe.provide("enterprise_ui.detail");
 
 	function toneForStatus(status) {
 		const s = String(status || "").toLowerCase();
-		if (["active", "published", "resolved", "repaid", "approved"].includes(s)) return "success";
-		if (["draft", "scheduled", "submitted", "under review", "in progress"].includes(s)) return "info";
-		if (["escalated", "urgent", "pending"].includes(s)) return "warn";
-		if (["cancelled", "left", "archived", "withdrawn", "rejected"].includes(s)) return "danger";
+		if (
+			[
+				"active",
+				"published",
+				"resolved",
+				"repaid",
+				"approved",
+				"completed",
+				"healthy",
+				"verified",
+			].includes(s)
+		)
+			return "success";
+		if (
+			["draft", "scheduled", "submitted", "under review", "in progress", "open"].includes(s)
+		)
+			return "info";
+		if (["escalated", "urgent", "pending", "warning"].includes(s)) return "warn";
+		if (
+			[
+				"cancelled",
+				"left",
+				"archived",
+				"withdrawn",
+				"rejected",
+				"failed",
+				"critical",
+			].includes(s)
+		)
+			return "danger";
+		if (["closed"].includes(s)) return "muted";
 		return "muted";
+	}
+
+	/** Alias for detailHeader — compact list/report page chrome */
+	function pageHeader(opts) {
+		return detailHeader(opts);
 	}
 
 	function pageShell(opts) {
@@ -289,6 +321,7 @@ frappe.provide("enterprise_ui.detail");
 		pageShell,
 		backLink,
 		detailHeader,
+		pageHeader,
 		heroBanner,
 		actionToolbar,
 		section,

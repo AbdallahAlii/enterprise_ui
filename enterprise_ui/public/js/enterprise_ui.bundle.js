@@ -13,3 +13,4 @@ import "./form_config.js";
 import "./form_enhancer.js";
 import "./bootstrap.js";
 import "./detail.js";
+import "./page.js";

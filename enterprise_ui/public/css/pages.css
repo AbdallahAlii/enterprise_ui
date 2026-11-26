@@ -7,8 +7,8 @@
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 100%;
-	padding: 16px 20px 24px;
 	min-width: 0;
+	padding: var(--eui-page-gutter-y) var(--eui-page-gutter-x) var(--eui-page-bottom-gap);
 }
 
 /* Desk page-container already offsets for Enterprise Shell sidebar —
@@ -19,22 +19,176 @@
 	/* left/right come from Shell; keep vertical rhythm on .layout-main-section */
 }
 
-.eui-page-toolbar,
+.eui-page-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--eui-space-3) var(--eui-space-4);
+	padding-bottom: var(--eui-page-header-gap);
+	margin-bottom: var(--eui-space-2);
+	border-bottom: 1px solid var(--eui-border);
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.eui-page-header__main {
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.eui-page-header__title {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--eui-text);
+	letter-spacing: -0.02em;
+	line-height: 1.25;
+}
+
+.eui-page-header__description {
+	margin: 4px 0 0;
+	font-size: 13px;
+	color: var(--eui-text-muted);
+	max-width: 52rem;
+}
+
+.eui-page-header__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--eui-space-2);
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.eui-page-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--eui-space-2) var(--eui-space-3);
+	margin-bottom: var(--eui-page-header-gap);
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
 .eui-page .page-head,
 .eui-page .page-form {
-	margin-bottom: 12px;
+	margin-bottom: var(--eui-page-header-gap);
+}
+
+.eui-page-content,
+.eui-page-section,
+.eui-page-summary {
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.eui-page-section {
+	margin-bottom: var(--eui-space-4);
+}
+
+.eui-page-summary {
+	margin-bottom: var(--eui-space-3);
 }
 
 .eui-page-filters,
 .eui-page .page-form {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px 14px;
+	gap: 10px var(--eui-space-3);
 	align-items: flex-end;
-	padding: 10px 12px;
-	background: var(--eui-surface, #fff);
-	border: 1px solid var(--eui-border, #e5e7eb);
-	border-radius: var(--eui-radius-md, 8px);
+	padding: var(--eui-space-3);
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.eui-page-loading {
+	padding: var(--eui-space-6) var(--eui-space-4);
+	text-align: center;
+	color: var(--eui-text-muted);
+	font-size: 13px;
+	background: var(--eui-surface-muted);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.eui-kpi-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: var(--eui-space-3);
+	margin-bottom: var(--eui-space-4);
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.eui-kpi-card {
+	padding: var(--eui-space-3) var(--eui-space-4);
+	background: var(--eui-surface);
+	border: 1px solid var(--eui-border);
+	border-radius: var(--eui-radius-md);
+	box-sizing: border-box;
+	min-width: 0;
+}
+
+.eui-kpi-card--success {
+	border-left: 3px solid var(--eui-success);
+}
+
+.eui-kpi-card--info {
+	border-left: 3px solid var(--eui-info);
+}
+
+.eui-kpi-card--warn {
+	border-left: 3px solid var(--eui-warning);
+}
+
+.eui-kpi-card--danger {
+	border-left: 3px solid var(--eui-danger);
+}
+
+.eui-kpi-card--muted {
+	border-left: 3px solid var(--eui-neutral);
+}
+
+.eui-kpi-card__label {
+	margin: 0 0 4px;
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--eui-text-muted);
+}
+
+.eui-kpi-card__value {
+	margin: 0;
+	font-size: 1.35rem;
+	font-weight: 750;
+	color: var(--eui-text);
+	font-variant-numeric: tabular-nums;
+	line-height: 1.2;
+}
+
+.eui-kpi-card__sub {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: var(--eui-text-muted);
 }
 
 .eui-page-filters .frappe-control,
@@ -165,7 +319,7 @@
 }
 
 .layout-main-section.ec-hrm-dashboard-main.eui-page {
-	padding: 16px 20px 24px !important;
+	padding: var(--eui-page-gutter-y) var(--eui-page-gutter-x) var(--eui-page-bottom-gap) !important;
 }
 
 .eui-page.ec-hrm-dashboard-page .ec-ap-kpi,
@@ -227,14 +381,6 @@
 }
 
 @media (max-width: 991.98px) {
-	.eui-page {
-		padding: 14px 16px 20px;
-	}
-
-	.layout-main-section.ec-hrm-dashboard-main.eui-page {
-		padding: 14px 16px 20px !important;
-	}
-
 	.eui-page.ec-hrm-dashboard-page .ec-ap-grid,
 	.ec-hrm-dashboard-page.eui-page .ec-ap-grid,
 	.layout-main-section.ec-hrm-dashboard-main .ec-ap-grid {
@@ -243,10 +389,6 @@
 }
 
 @media (max-width: 575.98px) {
-	.eui-page {
-		padding: 12px 12px 16px;
-	}
-
 	.eui-pagination-inner {
 		flex-direction: column;
 		align-items: stretch;
@@ -280,17 +422,23 @@
 	color: var(--es-brand-sidebar-active-text, #245a9c);
 	letter-spacing: 0.02em;
 	text-align: left;
-	padding: 8px 12px;
+	height: var(--eui-table-header-height);
+	padding: 0 12px;
+	line-height: var(--eui-table-header-height);
 	border-bottom: 1px solid rgba(47, 111, 191, 0.18);
 	white-space: nowrap;
+	box-sizing: border-box;
 }
 
 .eui-data-table tbody td {
 	font-size: 13px;
-	color: var(--eui-text, #111827);
-	padding: 8px 12px;
-	border-bottom: 1px solid var(--eui-border, #eef0f3);
+	line-height: 1.35;
+	color: var(--eui-text);
+	height: var(--eui-table-row-height);
+	padding: 0 12px;
+	border-bottom: 1px solid var(--eui-border);
 	vertical-align: middle;
+	box-sizing: border-box;
 }
 
 .eui-data-table tbody tr:last-child td {
@@ -576,21 +724,29 @@
 /* Detail view system                                                  */
 /* ------------------------------------------------------------------ */
 
+/* Match Employee Profile content width — fill shell content, modest gutters */
 .eui-detail-page {
-	max-width: 1100px;
+	max-width: 1180px;
+	width: 100%;
 	margin: 0 auto;
+	box-sizing: border-box;
 }
 
-.eui-detail-page--readable {
-	max-width: 760px;
-}
-
-.eui-detail-page--medium {
-	max-width: 960px;
-}
-
+.eui-detail-page--readable,
+.eui-detail-page--medium,
 .eui-detail-page--wide {
 	max-width: 1180px;
+}
+
+.eui-page.ec-salary-advance-view-host,
+.eui-page.ec-announcement-view-host,
+.eui-page.ec-grievance-view-host,
+.eui-page.ec-org-master-view-host,
+.eui-page.ec-leave-application-view-host,
+.eui-page.eui-exit-page,
+.eui-page.eui-payroll-adjustments-page {
+	max-width: none;
+	width: 100%;
 }
 
 .eui-detail-back {
