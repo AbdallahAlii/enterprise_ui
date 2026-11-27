@@ -225,7 +225,15 @@ html[data-theme="dark"] {
  * Global Enterprise Form Theme — page chrome, layout width, header.
  * ALL selectors are scoped under .eui-form-view to avoid Desk-wide leakage.
  * Never apply to Quick Entry dialogs, Web Forms, Print, List View.
+ *
+ * Pending is set only on an eligible main Form, before it is shown, and cleared
+ * when the essential classes are applied or the short fail-safe reveals native Frappe.
+ * It is not a global hide and it is not opacity:0.
  */
+.page-container[data-eui-state="pending"] > .page-head,
+.page-container[data-eui-state="pending"] .layout-main-section {
+	visibility: hidden;
+}
 
 .eui-form-view.page-container,
 .page-container.eui-form-view {

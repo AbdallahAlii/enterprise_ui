@@ -139,6 +139,207 @@ frappe.provide("enterprise_ui.form");
 	let activePageEl = null;
 	let bound = false;
 	let applying = false;
+	let failSafeTimer = null;
+	const FAILSAFE_IDLE_MS = 1500;
+	const FAILSAFE_CAP_MS = 20000;
+
+	function readyApi() {
+		return window.enterprise_ui_form_ready || null;
+	}
+
+	function currentFormDoctype() {
+		try {
+			const route = (window.frappe && frappe.get_route && frappe.get_route()) || [];
+			if (String(route[0] || "").toLowerCase() !== "form") return "";
+			return String(route[1] || "");
+		} catch (e) {
+			return "";
+		}
+	}
+
+	function pageFromLabel(label) {
+		if (!label) return null;
+		if (label.tagName) return label;
+		if (window.frappe && frappe.pages && frappe.pages[label]) return frappe.pages[label];
+		return document.getElementById("page-" + label);
+	}
+
+	function isDialogPage(page) {
+		return !!(page && page.closest && page.closest(".modal"));
+	}
+
+	function clearFailSafe() {
+		if (failSafeTimer) {
+			window.clearTimeout(failSafeTimer);
+			failSafeTimer = null;
+		}
+	}
+
+	function dispatchReady(page, state) {
+		try {
+			document.dispatchEvent(
+				new CustomEvent("enterprise-ui:ready", {
+					detail: {
+						state: state,
+						doctype: (page && page.getAttribute("data-eui-doctype")) || "",
+						route: (page && (page.getAttribute("data-page-route") || page.label)) || "",
+					},
+				})
+			);
+		} catch (e) {
+			/* The event is optional. Shell listens only when it is installed. */
+		}
+	}
+
+	function commitState(page, event, ctx) {
+		if (!page) return "";
+		const api = readyApi();
+		const prev = page.getAttribute("data-eui-state") || "";
+		const next = api ? api.readinessAfter(event, prev, ctx || {}) : prev;
+		if (next) page.setAttribute("data-eui-state", next);
+		if (next !== "pending") clearFailSafe();
+		if (next && next !== "pending" && (prev === "pending" || next !== prev)) {
+			dispatchReady(page, next);
+		}
+		return next;
+	}
+
+	function revealNative(page, message, indicator) {
+		if (page) {
+			if (activePageEl === page) activePageEl = null;
+			try {
+				clearPresentation(page);
+			} catch (e) {
+				/* Still reveal the page if class cleanup fails. */
+			}
+			page.setAttribute("data-eui-state", "failed");
+			clearFailSafe();
+			dispatchReady(page, "failed");
+		}
+		try {
+			if (window.frappe && frappe.show_alert && message) {
+				frappe.show_alert({ message: message, indicator: indicator || "orange" }, 6);
+			}
+		} catch (e) {
+			/* Alert is optional. The form must still become visible. */
+		}
+	}
+
+	function formLoadStillRunning(page) {
+		try {
+			if (window.frappe && frappe.request && frappe.request.ajax_count > 0) return true;
+		} catch (e) {
+			/* Treat an unreadable request counter as idle and fail open below. */
+		}
+		return !(page && page.querySelector && page.querySelector(".form-layout"));
+	}
+
+	function armFailSafe(page) {
+		clearFailSafe();
+		const started = Date.now();
+		const tick = function () {
+			failSafeTimer = null;
+			if (!page || page.getAttribute("data-eui-state") !== "pending") return;
+			const elapsed = Date.now() - started;
+			if (formLoadStillRunning(page) && elapsed < FAILSAFE_CAP_MS) {
+				failSafeTimer = window.setTimeout(tick, 1000);
+				return;
+			}
+			console.error(
+				"enterprise_ui: form enhancement timed out",
+				page.getAttribute("data-eui-doctype") || ""
+			);
+			revealNative(
+				page,
+				__("Enterprise UI could not finish this form. Showing the standard form."),
+				"orange"
+			);
+		};
+		failSafeTimer = window.setTimeout(tick, FAILSAFE_IDLE_MS);
+	}
+
+	function reportFailure(page, error) {
+		console.error("enterprise_ui: form enhancement failed", error);
+		revealNative(page, __("Enterprise UI failed to initialize this form."), "red");
+	}
+
+	function noteBeforeShow(label) {
+		const doctype = currentFormDoctype();
+		if (!doctype) return;
+		const page = pageFromLabel(label);
+		if (!page || isDialogPage(page)) return;
+
+		let presentation = null;
+		try {
+			presentation =
+				window.enterprise_ui && enterprise_ui.config ? enterprise_ui.config.resolve(doctype) : null;
+		} catch (e) {
+			presentation = null;
+		}
+		const eligible = !!(presentation && presentation.active && !presentation.use_native);
+		const same =
+			page.getAttribute("data-eui-doctype") === doctype && page.classList.contains(FORM_CLASS);
+		page.setAttribute("data-eui-doctype", doctype);
+		const next = commitState(page, "show", { eligible: eligible, sameDoctype: same });
+		if (next === "pending") armFailSafe(page);
+	}
+
+	function isPageReady(page) {
+		try {
+			if (!page || !page.getAttribute) return true;
+			if (isDialogPage(page)) return true;
+			const state = page.getAttribute("data-eui-state") || "";
+			const api = readyApi();
+			if (!api) return state !== "pending";
+			return api.isReadyState(state);
+		} catch (e) {
+			return true;
+		}
+	}
+
+	function isEnterpriseForm(page) {
+		if (!page || !page.classList) return false;
+		if (isDialogPage(page)) return false;
+		const state = page.getAttribute("data-eui-state") || "";
+		if (state === "native" || state === "failed") return false;
+		return state === "pending" || state === "ready" || page.classList.contains(FORM_CLASS);
+	}
+
+	function wrapChangeTo() {
+		if (!window.frappe || !frappe.container || frappe.container.__euiChangeWrapped) return;
+		const original = frappe.container.change_to.bind(frappe.container);
+		frappe.container.change_to = function (label) {
+			try {
+				noteBeforeShow(label);
+			} catch (e) {
+				console.error("enterprise_ui: pending mark failed", e);
+			}
+			return original(label);
+		};
+		frappe.container.__euiChangeWrapped = true;
+	}
+
+	function wrapRefreshFields() {
+		const Form = window.frappe && frappe.ui && frappe.ui.form && frappe.ui.form.Form;
+		const proto = Form && Form.prototype;
+		if (!proto || proto.__euiRefreshWrapped || typeof proto.refresh_fields !== "function") return;
+		const original = proto.refresh_fields;
+		proto.refresh_fields = function () {
+			const out = original.apply(this, arguments);
+			try {
+				enhanceFrm(this, { reveal: true });
+			} catch (e) {
+				reportFailure(getFormPageFromFrm(this), e);
+			}
+			return out;
+		};
+		proto.__euiRefreshWrapped = true;
+	}
+
+	function ensureHooks() {
+		wrapChangeTo();
+		wrapRefreshFields();
+	}
 
 	function isQuickEntryContext() {
 		return !!(
@@ -532,64 +733,75 @@ frappe.provide("enterprise_ui.form");
 		pageEl.__euiObserver = obs;
 	}
 
-	function enhanceFrm(frm) {
+	function enhanceFrm(frm, opts) {
+		const reveal = !opts || opts.reveal !== false;
 		if (applying) return;
 		if (!frm || !frm.doctype) return;
 		if (frm.meta && frm.meta.istable) return;
 		if (typeof frm.is_form_builder === "function" && frm.is_form_builder()) return;
 		if (isQuickEntryContext()) return;
 		if (frm.doctype === "Web Form") return;
-
-		const presentation = enterprise_ui.config.resolve(frm.doctype);
-		presentation.has_doctype_layout = !!(frm.doctype_layout && frm.doctype_layout.name);
 		const pageEl = getFormPageFromFrm(frm);
+		if (!pageEl || isDialogPage(pageEl)) return;
 
-		if (!pageEl) return;
-
+		let presentation = null;
 		applying = true;
 		try {
-		if (!presentation.active || presentation.use_native) {
-			if (activePageEl === pageEl) activePageEl = null;
-			clearPresentation(pageEl);
+			presentation = enterprise_ui.config.resolve(frm.doctype);
+			presentation.has_doctype_layout = !!(frm.doctype_layout && frm.doctype_layout.name);
+
+			if (!presentation.active || presentation.use_native) {
+				if (activePageEl === pageEl) activePageEl = null;
+				clearPresentation(pageEl);
+				cleanupNonFormPages();
+				commitState(pageEl, presentation.use_native ? "opt-out" : "disabled", {});
+				return;
+			}
+
+			if (activePageEl && activePageEl !== pageEl) {
+				clearPresentation(activePageEl);
+			}
+
+			activePageEl = pageEl;
+			pageEl.classList.add(FORM_CLASS);
+			pageEl.setAttribute("data-eui-doctype", frm.doctype);
+			pageEl.setAttribute("data-eui-density", presentation.density || "Comfortable");
+			pageEl.setAttribute("data-eui-width", presentation.content_width || "Wide");
+			pageEl.setAttribute("data-eui-section-style", presentation.section_style || "Standard");
+			pageEl.setAttribute("data-eui-header", presentation.header_styling ? "1" : "0");
+			pageEl.setAttribute("data-eui-grids", presentation.child_table_styling ? "1" : "0");
+			pageEl.setAttribute("data-eui-timeline", presentation.timeline_styling ? "1" : "0");
+			pageEl.setAttribute("data-eui-control-variant", "Outlined");
+			pageEl.setAttribute("data-eui-grid-mode", normalizeGridMode(presentation.grid_mode));
+			pageEl.setAttribute("data-eui-doctype-layout", presentation.has_doctype_layout ? "1" : "0");
+
+			pageEl.classList.remove("eui-docstatus-0", "eui-docstatus-1", "eui-docstatus-2");
+			const ds = frm.doc && typeof frm.doc.docstatus !== "undefined" ? frm.doc.docstatus : 0;
+			pageEl.classList.add("eui-docstatus-" + ds);
+
+			applyRichSections(pageEl, presentation);
+			decorateControls(pageEl, presentation);
+			applyAutoGrid(pageEl, presentation);
+			ensureObserver(pageEl);
 			cleanupNonFormPages();
-			return;
-		}
-
-		if (activePageEl && activePageEl !== pageEl) {
-			clearPresentation(activePageEl);
-		}
-
-		activePageEl = pageEl;
-		pageEl.classList.add(FORM_CLASS);
-		pageEl.setAttribute("data-eui-density", presentation.density || "Comfortable");
-		pageEl.setAttribute("data-eui-width", presentation.content_width || "Wide");
-		pageEl.setAttribute("data-eui-section-style", presentation.section_style || "Standard");
-		pageEl.setAttribute("data-eui-header", presentation.header_styling ? "1" : "0");
-		pageEl.setAttribute("data-eui-grids", presentation.child_table_styling ? "1" : "0");
-		pageEl.setAttribute("data-eui-timeline", presentation.timeline_styling ? "1" : "0");
-		pageEl.setAttribute("data-eui-control-variant", "Outlined");
-		pageEl.setAttribute("data-eui-grid-mode", normalizeGridMode(presentation.grid_mode));
-		pageEl.setAttribute("data-eui-doctype-layout", presentation.has_doctype_layout ? "1" : "0");
-
-		pageEl.classList.remove("eui-docstatus-0", "eui-docstatus-1", "eui-docstatus-2");
-		const ds = frm.doc && typeof frm.doc.docstatus !== "undefined" ? frm.doc.docstatus : 0;
-		pageEl.classList.add("eui-docstatus-" + ds);
-
-		applyRichSections(pageEl, presentation);
-		decorateControls(pageEl, presentation);
-		applyAutoGrid(pageEl, presentation);
-		ensureObserver(pageEl);
-		cleanupNonFormPages();
+			if (reveal) {
+				commitState(pageEl, "enhanced", { eligible: true });
+			}
+		} catch (e) {
+			reportFailure(pageEl, e);
 		} finally {
 			applying = false;
 		}
 
+		if (!reveal || !presentation || activePageEl !== pageEl) return;
 		window.requestAnimationFrame(function () {
 			if (activePageEl !== pageEl || applying) return;
 			applying = true;
 			try {
 				decorateControls(pageEl, presentation);
 				applyAutoGrid(pageEl, presentation);
+			} catch (e) {
+				console.error("enterprise_ui: post-paint form polish failed", e);
 			} finally {
 				applying = false;
 			}
@@ -600,8 +812,13 @@ frappe.provide("enterprise_ui.form");
 		const route = (frappe.get_route && frappe.get_route()) || [];
 		const isForm = route[0] === "Form";
 		if (!isForm) {
+			clearFailSafe();
 			if (activePageEl) {
-				clearPresentation(activePageEl);
+				const leaving = activePageEl;
+				clearPresentation(leaving);
+				if (leaving.getAttribute("data-eui-state") === "pending") {
+					leaving.setAttribute("data-eui-state", "native");
+				}
 				activePageEl = null;
 			}
 			cleanupNonFormPages();
@@ -611,9 +828,12 @@ frappe.provide("enterprise_ui.form");
 	function bind() {
 		if (bound) return;
 		bound = true;
+		ensureHooks();
 
 		$(document).on("form-refresh.enterprise_ui", function (_e, frm) {
-			enhanceFrm(frm);
+			/* Classes go on here. Readiness waits for refresh_fields, which runs next
+			   and sees the post-depends_on field visibility before the form is revealed. */
+			enhanceFrm(frm, { reveal: false });
 		});
 
 		$(document).on("page-change.enterprise_ui", function () {
@@ -621,12 +841,17 @@ frappe.provide("enterprise_ui.form");
 		});
 	}
 
+	ensureHooks();
+	if (window.frappe && frappe.ready) frappe.ready(ensureHooks);
+
 	enterprise_ui.form = {
 		enhanceFrm,
 		clearPresentation,
 		bind,
 		decorateControls,
 		applyAutoGrid,
+		isPageReady,
+		isEnterpriseForm,
 		FORM_CLASS,
 		HALF_WIDTH_TYPES,
 		FULL_WIDTH_TYPES,
